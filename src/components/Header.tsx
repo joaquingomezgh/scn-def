@@ -2,7 +2,7 @@ import { MapPin } from "lucide-react";
 
 const links = [
   { href: "#cortes", label: "Cortes" },
-  { href: "#historia", label: "Historia" },
+  { href: "#nosotros", label: "Nosotros" },
 ];
 
 export default function Header() {

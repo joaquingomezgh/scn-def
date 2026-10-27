@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ValueProps from "@/components/ValueProps";
 import Cuts from "@/components/Cuts";
-import History from "@/components/History";
+import About from "@/components/About";
 import BranchFinder from "@/components/BranchFinder";
 import Footer from "@/components/Footer";
 
@@ -14,7 +14,7 @@ export default function Home() {
         <Hero />
         <ValueProps />
         <Cuts />
-        <History />
+        <About />
         <BranchFinder />
       </main>
       <Footer />
