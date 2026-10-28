@@ -1,8 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { Clock, MapPin, Phone, Search } from "lucide-react";
+import dynamic from "next/dynamic";
+import { Clock, List, Map as MapIcon, MapPin, Phone, Search } from "lucide-react";
 import { branches } from "@/data/branches";
+
+// Leaflet necesita `window`, así que el mapa solo se carga en el navegador
+const BranchMap = dynamic(() => import("./BranchMap"), {
+  ssr: false,
+  loading: () => <div className="h-[440px] border border-linea bg-azulejo sm:h-[560px]" />,
+});
+
+const views = [
+  { id: "lista", label: "Lista", Icon: List },
+  { id: "mapa", label: "Mapa", Icon: MapIcon },
+] as const;
 
 // Minúsculas y sin tildes, para que "nestor" encuentre "Néstor"
 const normalize = (s: string) =>
@@ -10,6 +22,7 @@ const normalize = (s: string) =>
 
 export default function BranchFinder() {
   const [query, setQuery] = useState("");
+  const [view, setView] = useState<(typeof views)[number]["id"]>("lista");
   const q = normalize(query.trim());
   const results = branches.filter((b) =>
     normalize(`${b.name} ${b.address} ${b.city}`).includes(q),
@@ -38,15 +51,39 @@ export default function BranchFinder() {
             className="w-full rounded-full border border-linea bg-azulejo py-3 pr-4 pl-12 text-base outline-none focus:border-carmesi focus:ring-2 focus:ring-carmesi/20"
           />
         </div>
-        <p className="mt-3 text-sm text-gris" aria-live="polite">
-          {results.length === 1 ? "1 sucursal" : `${results.length} sucursales`}
-        </p>
+        <div className="mt-4 flex items-center justify-between gap-4">
+          <p className="text-sm text-gris" aria-live="polite">
+            {results.length === 1 ? "1 sucursal" : `${results.length} sucursales`}
+          </p>
+          <div
+            role="group"
+            aria-label="Ver sucursales como"
+            className="flex rounded-full border border-linea bg-azulejo p-1"
+          >
+            {views.map(({ id, label, Icon }) => (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={view === id}
+                onClick={() => setView(id)}
+                className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium text-gris hover:text-tinta focus-visible:outline-2 focus-visible:outline-carmesi aria-pressed:bg-tinta aria-pressed:text-white"
+              >
+                <Icon size={16} aria-hidden />
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
 
         {results.length === 0 ? (
           <p className="mt-6 border border-linea bg-azulejo p-6">
             No hay sucursales que coincidan con «{query}». Probá con el nombre del barrio o de la
             calle.
           </p>
+        ) : view === "mapa" ? (
+          <div className="mt-6">
+            <BranchMap items={results} />
+          </div>
         ) : (
           <ul className="mt-6 divide-y divide-linea border border-linea bg-azulejo">
             {results.map((b) => (

@@ -73,3 +73,12 @@ body {
     animation: none;
   }
 }
+
+/* Mapa de sucursales: tipografía de la marca y calles apagadas para que resalten los pines */
+.leaflet-container {
+  font: inherit;
+}
+
+.leaflet-tile-pane {
+  filter: saturate(0.3) contrast(0.95);
+}
