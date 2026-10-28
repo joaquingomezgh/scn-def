@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { Clock, List, Map as MapIcon, MapPin, Phone, Search } from "lucide-react";
+import { Clock, MapPin, Phone, Search } from "lucide-react";
 import { branches } from "@/data/branches";
 
 // Leaflet necesita `window`, así que el mapa solo se carga en el navegador
@@ -12,8 +12,8 @@ const BranchMap = dynamic(() => import("./BranchMap"), {
 });
 
 const views = [
-  { id: "lista", label: "Lista", Icon: List },
-  { id: "mapa", label: "Mapa", Icon: MapIcon },
+  { id: "lista", label: "Lista", emoji: "📋" },
+  { id: "mapa", label: "Mapa", emoji: "🗺️" },
 ] as const;
 
 // Minúsculas y sin tildes, para que "nestor" encuentre "Néstor"
@@ -51,28 +51,30 @@ export default function BranchFinder() {
             className="w-full rounded-full border border-linea bg-azulejo py-3 pr-4 pl-12 text-base outline-none focus:border-carmesi focus:ring-2 focus:ring-carmesi/20"
           />
         </div>
-        <div className="mt-4 flex items-center justify-between gap-4">
-          <p className="text-sm text-gris" aria-live="polite">
-            {results.length === 1 ? "1 sucursal" : `${results.length} sucursales`}
-          </p>
+        <div className="mt-8 flex flex-col items-center gap-3">
           <div
             role="group"
             aria-label="Ver sucursales como"
-            className="flex rounded-full border border-linea bg-azulejo p-1"
+            className="grid w-full max-w-sm grid-cols-2 gap-1 rounded-full border-2 border-carmesi/25 bg-azulejo p-1.5 shadow-[0_6px_16px_rgb(163_22_46/0.12)]"
           >
-            {views.map(({ id, label, Icon }) => (
+            {views.map(({ id, label, emoji }) => (
               <button
                 key={id}
                 type="button"
                 aria-pressed={view === id}
                 onClick={() => setView(id)}
-                className="inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium text-gris hover:text-tinta focus-visible:outline-2 focus-visible:outline-carmesi aria-pressed:bg-tinta aria-pressed:text-white"
+                className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-base font-semibold text-gris transition-colors hover:bg-marmol hover:text-tinta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-carmesi aria-pressed:bg-carmesi aria-pressed:text-white aria-pressed:hover:bg-carmesi-oscuro"
               >
-                <Icon size={16} aria-hidden />
+                <span className="text-xl leading-none" aria-hidden>
+                  {emoji}
+                </span>
                 {label}
               </button>
             ))}
           </div>
+          <p className="text-sm text-gris" aria-live="polite">
+            {results.length === 1 ? "1 sucursal" : `${results.length} sucursales`}
+          </p>
         </div>
 
         {results.length === 0 ? (
