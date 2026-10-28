@@ -57,6 +57,11 @@ body {
       bottom / var(--ancho) calc(var(--ancho) / 2) repeat-x;
 }
 
+/* El logo apoyado sobre los azulejos: la sombra sigue el contorno del cartel */
+.cartel-logo {
+  filter: drop-shadow(0 1px 0 #cfc8c0) drop-shadow(0 10px 14px rgb(43 34 32 / 0.14));
+}
+
 @keyframes desplegar {
   from {
     transform: scaleY(0);
