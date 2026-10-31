@@ -4,9 +4,7 @@ import { useState } from "react";
 import { MessageCircle, Minus, Plus } from "lucide-react";
 import { branches } from "@/data/branches";
 import { calcAsado, formatKg, type AsadoInput, type Line } from "@/data/asado";
-
-// TODO: reemplazar por el WhatsApp real de pedidos (549 + característica + número, sin 0 ni 15)
-const WHATSAPP = "5493564000000";
+import { whatsappLink } from "@/data/contact";
 
 const diners = [
   { key: "men", label: "Hombres", one: "un hombre", word: ["hombre", "hombres"], hint: "500 g c/u" },
@@ -311,7 +309,7 @@ export default function Asadometro() {
                   <TicketGroup title="Para el fuego y la mesa" lines={r.fire} />
                 </div>
                 <a
-                  href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`}
+                  href={whatsappLink(message)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-6 flex items-center justify-center gap-2 rounded-full bg-perejil px-5 py-4 text-base font-semibold sm:text-lg text-white hover:brightness-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-perejil"

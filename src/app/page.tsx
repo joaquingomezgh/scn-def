@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import SpecialOffer from "@/components/SpecialOffer";
 import ValueProps from "@/components/ValueProps";
 import Cuts from "@/components/Cuts";
 import Recipes from "@/components/Recipes";
@@ -14,6 +15,7 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <Hero />
+        <SpecialOffer />
         <ValueProps />
         <Cuts />
         <Recipes />

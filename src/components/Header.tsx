@@ -1,5 +1,6 @@
 import { MapPin } from "lucide-react";
 import Logo from "@/components/Logo";
+import OfferLink from "@/components/OfferLink";
 
 const links = [
   { href: "#cortes", label: "Cortes" },
@@ -20,6 +21,7 @@ export default function Header() {
           </span>
         </a>
         <nav className="flex items-center gap-6 text-sm font-medium">
+          <OfferLink />
           {links.map((l) => (
             <a key={l.href} href={l.href} className="hidden hover:text-carmesi sm:inline">
               {l.label}

@@ -10,6 +10,7 @@
   --color-carmesi: #a3162e;
   --color-carmesi-oscuro: #7e0f22;
   --color-perejil: #2e6b4a;
+  --color-fluo: #ffec4a; /* cartulina amarilla de los carteles de oferta */
 
   --font-sans: var(--font-archivo), system-ui, sans-serif;
 }
