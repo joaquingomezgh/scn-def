@@ -11,9 +11,8 @@
   --color-carmesi-oscuro: #7e0f22;
   --color-perejil: #2e6b4a;
   --color-fluo: #ffec4a; /* cartulina amarilla de los carteles de oferta */
-  --color-fluo-rosa: #ff9fc6; /* el resto de las cartulinas, para las ofertas de la semana */
-  --color-fluo-verde: #c8f250;
-  --color-fluo-naranja: #ffb441;
+  --color-carne-rosada: #f6cfc8; /* cartulinas de las ofertas de la semana, junto a carmesí y carmesí oscuro */
+  --color-carne-salmon: #e98a7e;
 
   --font-sans: var(--font-archivo), system-ui, sans-serif;
 }

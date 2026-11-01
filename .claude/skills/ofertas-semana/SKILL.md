@@ -16,6 +16,7 @@ El panel tiene **dos estados**, y los dos se controlan sólo desde `src/data/wee
 
 El diseño vive en `src/components/WeeklyOffers.tsx` y **no se toca** en este comando: sólo se cambian los datos.
 Así el panel sale siempre igual. Los colores, la inclinación y el tamaño de las cartulinas se calculan solos.
+Las cartulinas van siempre en los tonos rojos de la carnicería (carmesí, bordó, salmón y rosado carne): no uses colores fluo.
 Al pasar `endsAt` el panel se oculta en el navegador, sin volver a publicar.
 
 Si el dueño promociona **un solo producto**, es `/oferta`, no este comando. Las dos pueden estar activas a la vez.
