@@ -4,7 +4,7 @@ description: >
   Carga, cambia o quita las ofertas de la semana de Supercarnes Néstor (una tanda de 6 o 7 productos con
   cuenta regresiva) y las publica en la web. Usar cuando el usuario dice "/ofertas-semana", "ofertas de la semana",
   "Néstor mandó las ofertas", "cargá las ofertas" o pasa una lista de productos con precios o la foto de un cartel.
-argument-hint: "[lista de ofertas | ruta de una foto | quitar]"
+argument-hint: "[lista de ofertas | cambio puntual | ruta de una foto | quitar]"
 ---
 
 # /ofertas-semana
@@ -53,6 +53,15 @@ Respetá el orden que mandó el dueño. Sin orden claro, poné primero los corte
 7. Mostrá un resumen corto (lista de productos con precio, hasta cuándo, condiciones) y pedí confirmación para publicar.
 8. Con el «sí», publicá (ver «Publicar»).
 
+## Modificar la tanda actual
+
+Cuando piden un cambio puntual ("el vacío es 11200", "sacá el pollo", "agregá costilla a 9500", "extendelas hasta el domingo"):
+
+1. Leé `src/data/weeklyOffers.ts`. Si está en `null` o ya venció, avisá: no hay tanda para modificar, hay que cargar una nueva.
+2. Cambiá **sólo** lo que pidieron y dejá el resto igual. Cada `product` tiene que ser único en la lista.
+3. Si al sacar productos no queda ninguno, seguí los pasos de «Quitar las ofertas».
+4. Seguí desde el paso 5 de «Pasos para cargar o cambiar las ofertas». El mensaje de commit es `Actualizar ofertas de la semana: <qué cambió>`.
+
 ## Quitar las ofertas (`/ofertas-semana quitar`)
 
 1. Dejá `export const weeklyOffers: WeeklyOffers | null = null;` (manteniendo los tipos y los comentarios del archivo).
@@ -62,9 +71,10 @@ No hace falta quitarlas cuando vencen: se ocultan solas.
 
 ## Publicar
 
-1. Verificá que estás en `main` y traé lo último: `git pull --ff-only`.
+1. Verificá que estás en `main`, con `src/components/WeeklyOffers.tsx` presente, y traé lo último: `git pull --ff-only`. Si estás en otra rama, no publiques ni cambies de rama por tu cuenta: avisá al usuario y preguntá cómo seguir.
 2. Hacé commit **sólo** de `src/data/weeklyOffers.ts`, con mensaje en español:
    - `Cargar ofertas de la semana: <cantidad> productos hasta el <día>`
+   - `Actualizar ofertas de la semana: <qué cambió>`
    - `Quitar ofertas de la semana`
 3. `git push`. Vercel publica solo en uno o dos minutos.
 4. Avisá al usuario que ya están publicadas y que en un par de minutos se ven en la web.

@@ -2,9 +2,6 @@ import { useSyncExternalStore } from "react";
 import { offer } from "@/data/offer";
 import { weeklyOffers } from "@/data/weeklyOffers";
 
-// Prototipo: los paneles quedan visibles aunque venza la fecha. Para volver a ocultarlos solos, pasar a false
-const KEEP_VISIBLE = true;
-
 // Reloj que avanza de a un segundo. En el servidor no hay hora: la cuenta arranca al cargar la página
 const tick = (cb: () => void) => {
   const id = setInterval(cb, 1000);
@@ -22,7 +19,7 @@ function useActive<T extends { endsAt: string }>(promo: T | null) {
   if (!promo) return { promo: null, secondsLeft: null };
 
   const end = Math.floor(new Date(promo.endsAt).getTime() / 1000);
-  if (now !== null && now >= end) return KEEP_VISIBLE ? { promo, secondsLeft: 0 } : { promo: null, secondsLeft: null };
+  if (now !== null && now >= end) return { promo: null, secondsLeft: null };
   return { promo, secondsLeft: now === null ? null : end - now };
 }
 
