@@ -14,7 +14,7 @@ export default function Hero() {
         {/* El cartel sobre la pared de azulejos */}
         <div className="max-w-2xl border border-linea bg-azulejo p-6 sm:p-10">
           <h1 className="font-display max-w-[14ch] text-4xl leading-[1.05] font-extrabold sm:text-6xl">
-            Carne fresca, cortada a la vista.
+            Carnes de primera calidad.
           </h1>
           <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-gris">
             En nuestras 11 sucursales cortamos en el momento lo que te llevás, con el espesor y el

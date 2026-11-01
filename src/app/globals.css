@@ -11,6 +11,9 @@
   --color-carmesi-oscuro: #7e0f22;
   --color-perejil: #2e6b4a;
   --color-fluo: #ffec4a; /* cartulina amarilla de los carteles de oferta */
+  --color-fluo-rosa: #ff9fc6; /* el resto de las cartulinas, para las ofertas de la semana */
+  --color-fluo-verde: #c8f250;
+  --color-fluo-naranja: #ffb441;
 
   --font-sans: var(--font-archivo), system-ui, sans-serif;
 }
@@ -71,6 +74,93 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .toldo {
+    animation: none;
+  }
+}
+
+/* Dibujos de cortes en las recetas: el trazo se dibuja al aparecer y el corte larga vapor
+   cuando la ficha está activa (mouse encima, foco o receta abierta) */
+.corte .pieza {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.corte .vapor path {
+  opacity: 0;
+}
+
+.corte.trazar .trazo {
+  stroke-dasharray: 1;
+  animation: trazar 1100ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.corte.trazar .relleno {
+  animation: rellenar 500ms 700ms ease-out both;
+}
+
+.corte.trazar .trazo.relleno {
+  animation:
+    trazar 1100ms cubic-bezier(0.4, 0, 0.2, 1) both,
+    rellenar 500ms 700ms ease-out both;
+}
+
+.corte.trazar .trazo.detalle {
+  animation-delay: 900ms;
+  animation-duration: 700ms;
+}
+
+.ficha:is(:hover, :focus-within, :has(details[open])) .corte .pieza {
+  transform: scale(1.05) rotate(-3deg);
+}
+
+.ficha:is(:hover, :focus-within, :has(details[open])) .corte .vapor path {
+  animation: vapor 1800ms var(--retraso, 0s) ease-in-out infinite;
+}
+
+.corte .vapor path:nth-child(2) {
+  --retraso: 500ms;
+}
+
+.corte .vapor path:nth-child(3) {
+  --retraso: 1000ms;
+}
+
+@keyframes trazar {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes rellenar {
+  from {
+    fill-opacity: 0;
+  }
+}
+
+@keyframes vapor {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .corte .pieza {
+    transition: none;
+  }
+
+  .ficha .corte .vapor path {
     animation: none;
   }
 }

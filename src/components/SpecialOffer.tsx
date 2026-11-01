@@ -2,36 +2,11 @@
 
 import Image from "next/image";
 import { MapPin, MessageCircle } from "lucide-react";
+import Countdown from "@/components/Countdown";
+import { closing, NARROW, pesos, STAR } from "@/components/promoFormat";
 import { useActiveOffer } from "@/components/useActiveOffer";
 import { whatsappLink } from "@/data/contact";
 import type { Offer } from "@/data/offer";
-
-// Números angostos, como los precios pintados con fibrón en una cartulina
-const NARROW = "[font-variation-settings:'wdth'_62] tracking-tight";
-
-const pesos = new Intl.NumberFormat("es-AR", { maximumFractionDigits: 0 });
-const dateParts = new Intl.DateTimeFormat("es-AR", {
-  weekday: "long",
-  day: "numeric",
-  month: "long",
-  hour: "2-digit",
-  minute: "2-digit",
-  hourCycle: "h23",
-  timeZone: "America/Argentina/Cordoba",
-});
-
-// "sábado 7 de noviembre a las 21:00", armado a mano para no depender de las comas de Intl
-function closing(iso: string) {
-  const p = Object.fromEntries(dateParts.formatToParts(new Date(iso)).map((x) => [x.type, x.value]));
-  return `${p.weekday} ${p.day} de ${p.month} a las ${p.hour}:${p.minute}`;
-}
-
-// Estrella de "oferta" pegada en la esquina del cartel. Redondeada para que servidor y navegador coincidan
-const STAR = Array.from({ length: 28 }, (_, i) => {
-  const r = i % 2 ? 41 : 50;
-  const a = (Math.PI * i) / 14;
-  return [50 + r * Math.cos(a), 50 + r * Math.sin(a)].map((n) => Math.round(n * 10) / 10).join(",");
-}).join(" ");
 
 // La cartulina fluo escrita a mano que se pega en la vidriera
 function Poster({ offer }: { offer: Offer }) {
@@ -53,7 +28,8 @@ function Poster({ offer }: { offer: Offer }) {
           </div>
         </div>
       )}
-      <p className="font-display max-w-[11ch] text-3xl leading-[1.05] font-extrabold sm:text-4xl">
+      {/* El margen derecho hace que el nombre corte antes de la estrella del descuento */}
+      <p className="font-display max-w-[11ch] pr-12 text-3xl leading-[1.05] font-extrabold sm:text-4xl">
         {offer.product}
       </p>
       <p className="mt-3 max-w-[30ch] leading-snug text-gris">{offer.detail}</p>
@@ -87,40 +63,6 @@ function Poster({ offer }: { offer: Offer }) {
   );
 }
 
-// Cuenta regresiva con números grandes, separados como en el visor de la balanza
-function Countdown({ seconds }: { seconds: number | null }) {
-  const parts =
-    seconds === null
-      ? null
-      : [
-          Math.floor(seconds / 86400),
-          Math.floor(seconds / 3600) % 24,
-          Math.floor(seconds / 60) % 60,
-          seconds % 60,
-        ];
-  const units = ["días", "horas", "min", "seg"];
-
-  return (
-    <div className="flex items-start gap-2 sm:gap-3">
-      {units.map((u, i) => (
-        <div key={u} className="flex items-start gap-2 sm:gap-3">
-          {i > 0 && (
-            <span className={`${NARROW} text-5xl leading-none font-black text-white/40 sm:text-6xl`} aria-hidden>
-              :
-            </span>
-          )}
-          <div className="text-center">
-            <span className={`${NARROW} block min-w-[2ch] text-5xl leading-none font-black tabular-nums sm:text-6xl`}>
-              {parts ? String(parts[i]).padStart(2, "0") : "--"}
-            </span>
-            <span className="mt-1.5 block text-sm text-white/75">{u}</span>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export default function SpecialOffer() {
   const { offer, secondsLeft } = useActiveOffer();
   if (!offer) return null;
@@ -128,12 +70,12 @@ export default function SpecialOffer() {
   const message = `¡Hola Supercarnes Néstor! Quiero reservar la oferta especial de ${offer.product.toLowerCase()} a $${pesos.format(offer.price)} ${offer.unit}.`;
 
   return (
-    <section id="oferta" className="scroll-mt-16 overflow-hidden bg-carmesi text-white">
-      <div className="mx-auto grid max-w-6xl gap-x-16 gap-y-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1fr_auto] lg:items-center">
+    <div id="oferta" className="mt-12 scroll-mt-20 bg-carmesi text-white sm:mt-16">
+      <div className="grid gap-x-16 gap-y-12 px-6 py-12 sm:px-10 sm:py-16 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
-          <h2 className="font-display text-[2.5rem] leading-[1.02] font-extrabold sm:text-6xl">
+          <h3 className="font-display text-[2.5rem] leading-[1.02] font-extrabold sm:text-6xl">
             Oferta especial
-          </h2>
+          </h3>
           <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-white/85">
             Cada tanto Néstor elige un corte y lo deja a un precio que no se repite. Dura pocos
             días: cuando llega a cero, vuelve a su precio de siempre.
@@ -173,6 +115,6 @@ export default function SpecialOffer() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

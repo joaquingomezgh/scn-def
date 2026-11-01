@@ -9,7 +9,7 @@ export default function Footer() {
           <p>
             <span className="font-display font-extrabold text-tinta">Supercarnes Néstor</span>
             <br />
-            Carne fresca, cortada a la vista.
+            Carnes de primera calidad.
           </p>
         </div>
         <p>© 2026 Supercarnes Néstor</p>

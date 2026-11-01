@@ -12,7 +12,7 @@ argument-hint: "[datos de la oferta | quitar]"
 La web tiene **dos estados** para la oferta especial, y los dos se controlan sólo desde
 `src/data/offer.ts`:
 
-- **Sin oferta:** `export const offer: Offer | null = null;` → no aparece nada (ni la sección ni el link «Oferta» del menú).
+- **Sin oferta:** `export const offer: Offer | null = null;` → no aparece el cartel. Si tampoco hay ofertas de la semana, se van también la sección «Ofertas» y su link del menú.
 - **Con oferta:** `offer` es un objeto → aparece el cartel fluo con la cuenta regresiva.
 
 El diseño vive en `src/components/SpecialOffer.tsx` y **no se toca** en este comando: sólo se cambian los datos.

@@ -1,6 +1,6 @@
 import { ChefHat, ChevronDown, Clock, CookingPot, Flame, FlameKindling, Scale, Users } from "lucide-react";
-import { COW_HORN, COW_OUTLINE, COW_TAIL, COW_VIEWBOX, cowCuts } from "@/data/cow";
-import { recipes, type Recipe } from "@/data/recipes";
+import CutArt from "@/components/CutArt";
+import { recipes } from "@/data/recipes";
 
 const methods = {
   parrilla: { label: "A la parrilla", Icon: FlameKindling },
@@ -38,35 +38,6 @@ function Seal() {
   );
 }
 
-// La vaca de la casa con la zona del corte resaltada: muestra de dónde sale la carne
-function CutMap({ recipe }: { recipe: Recipe }) {
-  const zone = cowCuts.find((c) => c.id === recipe.zone)!;
-  const clipId = `vaca-${recipe.slug}`;
-
-  return (
-    <svg viewBox={COW_VIEWBOX} className="h-24 w-auto sm:h-28" aria-hidden>
-      <defs>
-        <clipPath id={clipId}>
-          <path d={COW_OUTLINE} />
-        </clipPath>
-      </defs>
-      <path d={COW_OUTLINE} className="fill-white/15" />
-      <polygon points={zone.zone} clipPath={`url(#${clipId})`} className="fill-white" />
-      <g
-        className="stroke-white"
-        fill="none"
-        strokeWidth={6}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d={COW_OUTLINE} />
-        <path d={COW_HORN} />
-        <path d={COW_TAIL} />
-      </g>
-    </svg>
-  );
-}
-
 export default function Recipes() {
   return (
     <section id="recetas" className="scroll-mt-16">
@@ -91,16 +62,16 @@ export default function Recipes() {
             return (
               <li
                 key={r.slug}
-                className="row-span-5 grid grid-rows-subgrid content-start gap-y-0 border border-linea bg-azulejo"
+                className="ficha row-span-5 grid grid-rows-subgrid content-start gap-y-0 border border-linea bg-azulejo"
               >
-                {/* Cabecera de la ficha: método de cocción y de qué parte de la vaca sale el corte */}
+                {/* Cabecera de la ficha: método de cocción y el dibujo del corte que se usa */}
                 <div className="bg-carmesi p-5 text-white">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-sm font-semibold text-carmesi">
                     <Icon size={15} aria-hidden />
                     {label}
                   </span>
                   <div className="mt-2 flex justify-center">
-                    <CutMap recipe={r} />
+                    <CutArt art={r.art} />
                   </div>
                   <p className="mt-2 text-sm text-white/85">
                     Corte: <span className="font-semibold text-white">{r.cut}</span>

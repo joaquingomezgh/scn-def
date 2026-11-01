@@ -1,15 +1,16 @@
 // Recetas de la casa: cada una indica qué corte pedir y cuánto llevar en el mostrador
 // TODO: validar recetas, tiempos y cantidades con la marca
 
-import type { CowCutId } from "@/data/cow";
+// Dibujos disponibles en CutArt: uno por cada corte que usan las recetas
+export type CutArtId = "ojo" | "tomahawk" | "vacio" | "cuadril" | "entrana" | "osobuco";
 
 export type Recipe = {
   slug: string;
   title: string;
   method: "parrilla" | "horno" | "olla";
-  // Corte que se pide y zona de la vaca de donde sale
+  // Corte que se pide y su dibujo
   cut: string;
-  zone: CowCutId;
+  art: CutArtId;
   description: string;
   time: string;
   servings: string;
@@ -25,7 +26,7 @@ export const recipes: Recipe[] = [
     title: "Ojo de bife con chimichurri de la casa",
     method: "parrilla",
     cut: "Ojo de bife",
-    zone: "ojo",
+    art: "ojo",
     description:
       "Bifes gruesos, sellados a fuego fuerte y terminados con el chimichurri que preparamos en el local.",
     time: "30 min",
@@ -50,7 +51,7 @@ export const recipes: Recipe[] = [
     title: "Vacío crocante a la parrilla",
     method: "parrilla",
     cut: "Vacío",
-    zone: "vacio",
+    art: "vacio",
     description:
       "Cocción lenta del lado de la grasa hasta que la piel queda dorada y el interior jugoso.",
     time: "2 h 30 min",
@@ -69,7 +70,7 @@ export const recipes: Recipe[] = [
     title: "Tomahawk a la manteca de hierbas",
     method: "parrilla",
     cut: "Ojo de bife con hueso",
-    zone: "ojo",
+    art: "tomahawk",
     description:
       "El corte para una ocasión especial: hueso largo, marmoleo generoso y un final de manteca y romero.",
     time: "1 h",
@@ -93,7 +94,7 @@ export const recipes: Recipe[] = [
     title: "Colita de cuadril al horno con papas",
     method: "horno",
     cut: "Colita de cuadril",
-    zone: "cuadril",
+    art: "cuadril",
     description: "Dorada en sartén y terminada en el horno sobre papas que se cocinan en su jugo.",
     time: "1 h 15 min",
     servings: "4 personas",
@@ -117,7 +118,7 @@ export const recipes: Recipe[] = [
     title: "Entraña con salsa criolla",
     method: "parrilla",
     cut: "Entraña",
-    zone: "vacio",
+    art: "entrana",
     description: "Rápida, sabrosa y bien a punto. La pedimos limpia para que vaya directo al fuego.",
     time: "25 min",
     servings: "3 personas",
@@ -138,7 +139,7 @@ export const recipes: Recipe[] = [
     title: "Osobuco braseado al malbec",
     method: "olla",
     cut: "Osobuco",
-    zone: "osobuco",
+    art: "osobuco",
     description:
       "Cocción larga en vino tinto hasta que la carne se separa del hueso. Ideal para los días fríos.",
     time: "3 h",

@@ -1,4 +1,4 @@
-// Fórmulas del Asadómetro. Son cantidades orientativas: el carnicero las ajusta en el mostrador.
+// Fórmulas de la Calculadora de asado. Son cantidades orientativas: el carnicero las ajusta en el mostrador.
 
 export type Appetite = "liviano" | "normal" | "asadero";
 export type MeatMix = "vacuno" | "mix";

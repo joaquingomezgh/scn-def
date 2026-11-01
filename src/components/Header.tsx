@@ -5,7 +5,7 @@ import OfferLink from "@/components/OfferLink";
 const links = [
   { href: "#cortes", label: "Cortes" },
   { href: "#recetas", label: "Recetas" },
-  { href: "#asadometro", label: "Asadómetro" },
+  { href: "#asadometro", label: "Calculadora de asado" },
   { href: "#nosotros", label: "Nosotros" },
 ];
 

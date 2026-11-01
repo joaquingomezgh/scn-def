@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { MessageCircle, Minus, Plus } from "lucide-react";
-import { branches } from "@/data/branches";
+import { Minus, Plus } from "lucide-react";
 import { calcAsado, formatKg, type AsadoInput, type Line } from "@/data/asado";
-import { whatsappLink } from "@/data/contact";
 
 const diners = [
-  { key: "men", label: "Hombres", one: "un hombre", word: ["hombre", "hombres"], hint: "500 g c/u" },
-  { key: "women", label: "Mujeres", one: "una mujer", word: ["mujer", "mujeres"], hint: "400 g c/u" },
-  { key: "kids", label: "Niños", one: "un niño", word: ["niño", "niños"], hint: "250 g c/u" },
+  { key: "men", label: "Hombres", one: "un hombre", hint: "500 g c/u" },
+  { key: "women", label: "Mujeres", one: "una mujer", hint: "400 g c/u" },
+  { key: "kids", label: "Niños", one: "un niño", hint: "250 g c/u" },
 ] as const;
 
 const appetites = [
@@ -151,37 +149,19 @@ export default function Asadometro() {
     mix: "vacuno",
     offal: true,
   });
-  const [branchId, setBranchId] = useState("");
   const set = (patch: Partial<AsadoInput>) => setInput((prev) => ({ ...prev, ...patch }));
 
   const r = calcAsado(input);
   const total = Math.round(r.total * 10) / 10;
-  const branch = branches.find((b) => b.id === branchId);
-
-  const who = diners
-    .filter((d) => input[d.key] > 0)
-    .map((d) => `${input[d.key]} ${d.word[input[d.key] === 1 ? 0 : 1]}`)
-    .join(", ");
-  const block = (title: string, lines: Line[]) =>
-    lines.length ? `\n*${title}*\n${lines.map((l) => `• ${l.label}: ${l.amount}`).join("\n")}\n` : "";
-  const message = [
-    `¡Hola Supercarnes Néstor! Hice el cálculo en El Asadómetro para ${r.people} ${r.people === 1 ? "persona" : "personas"} (${who}) y quisiera encargar:\n`,
-    block("Carne", r.cuts),
-    block("Achuras y embutidos", r.extras),
-    block("Para el fuego y la mesa", r.fire),
-    branch ? `\nLo retiro en la sucursal ${branch.name} (${branch.address}, ${branch.city}).` : "",
-    "\n¡Gracias!",
-  ].join("");
 
   return (
     <section id="asadometro" className="scroll-mt-16 bg-marmol">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <h2 className="font-display text-[2.5rem] leading-[1.02] font-extrabold sm:text-6xl">
-          El Asadómetro
+          Calculadora de asado
         </h2>
         <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-gris">
-          Decinos cuántos son y te decimos cuánta carne, achuras y carbón llevar. Después
-          encargalo por WhatsApp y pasalo a buscar.
+          Decinos cuántos son y te decimos cuánta carne, achuras y carbón llevar.
         </p>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-start">
@@ -273,28 +253,9 @@ export default function Asadometro() {
                 <span className="absolute top-1 left-1 size-6 rounded-full bg-white shadow transition-transform group-aria-checked:translate-x-6 motion-reduce:transition-none" />
               </span>
             </button>
-
-            <div>
-              <label htmlFor="retiro" className="font-semibold">
-                ¿En qué sucursal lo retirás?
-              </label>
-              <select
-                id="retiro"
-                value={branchId}
-                onChange={(e) => setBranchId(e.target.value)}
-                className="mt-3 w-full rounded-full border border-linea bg-azulejo px-4 py-3 text-base outline-none focus:border-carmesi focus:ring-2 focus:ring-carmesi/20"
-              >
-                <option value="">Todavía no sé</option>
-                {branches.map((b) => (
-                  <option key={b.id} value={b.id}>
-                    {b.name} ({b.address}, {b.city})
-                  </option>
-                ))}
-              </select>
-            </div>
           </div>
 
-          {/* Ticket de mostrador con el detalle y el pedido */}
+          {/* Ticket de mostrador con el detalle de la recomendación */}
           <div className="border border-linea bg-azulejo p-5 sm:p-7 lg:col-start-2">
             {r.people === 0 ? (
               <p className="text-gris">
@@ -308,17 +269,8 @@ export default function Asadometro() {
                   <TicketGroup title="Achuras y embutidos" lines={r.extras} />
                   <TicketGroup title="Para el fuego y la mesa" lines={r.fire} />
                 </div>
-                <a
-                  href={whatsappLink(message)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 flex items-center justify-center gap-2 rounded-full bg-perejil px-5 py-4 text-base font-semibold sm:text-lg text-white hover:brightness-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-perejil"
-                >
-                  <MessageCircle size={22} aria-hidden />
-                  Encargar pedido por WhatsApp
-                </a>
-                <p className="mt-3 text-center text-sm text-gris">
-                  Se abre WhatsApp con el pedido escrito. Podés cambiarlo antes de enviarlo.
+                <p className="mt-4 text-sm text-gris">
+                  Son cantidades orientativas. En el mostrador te ayudamos a ajustarlas.
                 </p>
               </>
             )}

@@ -10,7 +10,7 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: "Supercarnes Néstor | Carne fresca, cortada a la vista",
+  title: "Supercarnes Néstor | Carnes de primera calidad",
   description:
     "Cortes del día y atención de mostrador en 11 sucursales. Encontrá la más cercana, su horario y cómo llegar.",
 };
