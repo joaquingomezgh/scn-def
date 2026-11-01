@@ -18,6 +18,6 @@ export const offer: Offer | null = {
   price: 8990,
   before: 11500,
   unit: "el kilo",
-  endsAt: "2026-11-07T21:00:00-03:00",
+  endsAt: "2026-11-22T21:00:00-03:00",
   terms: "En todas las sucursales o hasta agotar stock.",
 };

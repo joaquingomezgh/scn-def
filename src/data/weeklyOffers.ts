@@ -15,7 +15,7 @@ export type WeeklyOffers = {
 };
 
 export const weeklyOffers: WeeklyOffers | null = {
-  endsAt: "2026-11-07T21:00:00-03:00",
+  endsAt: "2026-11-22T21:00:00-03:00",
   terms: "En todas las sucursales o hasta agotar stock.",
   items: [
     { product: "Vacío", price: 10900, unit: "el kilo" },
