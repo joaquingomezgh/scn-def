@@ -57,7 +57,7 @@ Al pasar `endsAt` la sección se oculta sola en el navegador, sin volver a publi
 
 ## Publicar
 
-1. Verificá que estás en `prueba-cloudflare` y traé lo último: `git pull --ff-only`. Si estás en otra rama, no publiques ni cambies de rama por tu cuenta: avisá al usuario y preguntá cómo seguir. `npm run deploy` publica lo que hay en la carpeta, así que si `git status` muestra otros cambios sin guardar, frená y consultá.
+1. Verificá que estás en `main` y traé lo último: `git pull --ff-only`. Si estás en otra rama, no publiques ni cambies de rama por tu cuenta: avisá al usuario y preguntá cómo seguir. `npm run deploy` publica lo que hay en la carpeta, así que si `git status` muestra otros cambios sin guardar, frená y consultá.
 2. Hacé commit **sólo** de `src/data/offer.ts` y `public/ofertas/`, con mensaje en español:
    - `Cargar oferta especial: <producto> a $<precio> hasta el <día>`
    - `Quitar oferta especial`

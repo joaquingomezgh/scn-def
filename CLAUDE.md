@@ -27,10 +27,10 @@ Este sitio web es una **landing page y hub digital para Supercarnes Néstor**, u
 
 ## 6. Hosting y Ramas
 - **Hosting:** Cloudflare Workers, en https://supercarnes-nestor.supercarnes-nestor.workers.dev (todavía sin dominio propio).
-- **Rama de trabajo:** `prueba-cloudflare`. Todo el trabajo nuevo va acá.
+- **Rama de trabajo:** `main`.
 - **Publicar:** GitHub todavía no está conectado a Cloudflare, así que `git push` no publica. Hay que correr `npm run deploy` con una sesión de Wrangler iniciada.
-- **`main` está congelada:** es la versión previa a Cloudflare y GitHub rechaza cualquier cambio. No trabajar ni commitear ahí. El tag `respaldo-vercel-2026-11-04` marca ese mismo punto.
-- **Vercel:** no se usa. Sus menciones en `main`, en ese tag y en commits viejos son historia, no instrucciones.
+- **Versión anterior a Cloudflare:** queda guardada en el tag `respaldo-vercel-2026-11-04`.
+- **Vercel:** no se usa. Sus menciones en ese tag y en commits viejos son historia, no instrucciones.
 
 ## 7. Sin Dependencia de Cloudflare
 El sitio tiene que poder mudarse a otro hosting cambiando solo la configuración de despliegue, sin reescribir la aplicación.

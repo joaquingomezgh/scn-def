@@ -71,7 +71,7 @@ No hace falta quitarlas cuando vencen: se ocultan solas.
 
 ## Publicar
 
-1. Verificá que estás en `prueba-cloudflare`, con `src/components/WeeklyOffers.tsx` presente, y traé lo último: `git pull --ff-only`. Si estás en otra rama, no publiques ni cambies de rama por tu cuenta: avisá al usuario y preguntá cómo seguir. `npm run deploy` publica lo que hay en la carpeta, así que si `git status` muestra otros cambios sin guardar, frená y consultá.
+1. Verificá que estás en `main`, con `src/components/WeeklyOffers.tsx` presente, y traé lo último: `git pull --ff-only`. Si estás en otra rama, no publiques ni cambies de rama por tu cuenta: avisá al usuario y preguntá cómo seguir. `npm run deploy` publica lo que hay en la carpeta, así que si `git status` muestra otros cambios sin guardar, frená y consultá.
 2. Hacé commit **sólo** de `src/data/weeklyOffers.ts`, con mensaje en español:
    - `Cargar ofertas de la semana: <cantidad> productos hasta el <día>`
    - `Actualizar ofertas de la semana: <qué cambió>`

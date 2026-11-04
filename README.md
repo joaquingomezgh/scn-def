@@ -31,4 +31,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Despliegue
 
-El sitio se publica en Cloudflare Workers con `npm run deploy`, desde la rama `prueba-cloudflare`. La rama `main` está congelada como respaldo. Más detalles en la sección 6 de `CLAUDE.md`.
+El sitio se publica en Cloudflare Workers con `npm run deploy`, desde la rama `main`. Más detalles en la sección 6 de `CLAUDE.md`.
