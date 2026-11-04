@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
+import { SITE_URL } from "@/data/site";
 import "./globals.css";
 
 // Una sola familia: el eje de ancho separa títulos (expandido) de cuerpo (normal)
@@ -10,6 +11,8 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: "/" },
   title: "Supercarnes Néstor | Carnes de primera calidad",
   description:
     "Cortes del día y atención de mostrador en 11 sucursales. Encontrá la más cercana, su horario y cómo llegar.",
