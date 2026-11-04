@@ -29,5 +29,12 @@ Este sitio web es una **landing page y hub digital para Supercarnes Néstor**, u
 - **Hosting:** Cloudflare Workers, en https://supercarnes-nestor.supercarnes-nestor.workers.dev (todavía sin dominio propio).
 - **Rama de trabajo:** `prueba-cloudflare`. Todo el trabajo nuevo va acá.
 - **Publicar:** GitHub todavía no está conectado a Cloudflare, así que `git push` no publica. Hay que correr `npm run deploy` con una sesión de Wrangler iniciada.
-- **`main` está congelada:** es el respaldo previo a la mudanza y GitHub rechaza cualquier cambio. No trabajar ni commitear ahí. El tag `respaldo-vercel-2026-11-04` marca ese mismo punto.
-- **Vercel:** no es el hosting actual. Sus menciones en `main` y en commits viejos son historia, no instrucciones.
+- **`main` está congelada:** es la versión previa a Cloudflare y GitHub rechaza cualquier cambio. No trabajar ni commitear ahí. El tag `respaldo-vercel-2026-11-04` marca ese mismo punto.
+- **Vercel:** no se usa. Sus menciones en `main`, en ese tag y en commits viejos son historia, no instrucciones.
+
+## 7. Sin Dependencia de Cloudflare
+El sitio tiene que poder mudarse a otro hosting cambiando solo la configuración de despliegue, sin reescribir la aplicación.
+- **Lo específico de Cloudflare va solo en la configuración:** `wrangler.jsonc`, `open-next.config.ts`, `public/_headers` y los scripts de despliegue.
+- **En `src/` solo Next.js y estándares web:** nada de `getCloudflareContext`, imports `cloudflare:*`, `env` de Workers ni URLs `/cdn-cgi/`. Las imágenes van con `next/image`, sin un loader de Cloudflare.
+- **No usar servicios propios de Cloudflare para la aplicación:** KV, D1, R2, Durable Objects, Queues, Workers AI o similares. Si hace falta guardar datos o archivos, elegir una opción que funcione en cualquier hosting.
+- **Excepciones:** si una función no se puede resolver sin atarse a Cloudflare, frenar y consultarlo con el usuario antes de implementarla.
