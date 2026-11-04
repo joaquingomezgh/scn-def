@@ -7,7 +7,7 @@ Este sitio web es una **landing page y hub digital para Supercarnes Néstor**, u
 - **Framework:** Next.js (App Router, TypeScript).
 - **Estilos:** Tailwind CSS.
 - **Íconos:** Lucide React.
-- **Despliegue:** Vercel via GitHub.
+- **Despliegue:** Cloudflare Workers con OpenNext. Ver la sección 6.
 
 ## 3. Reglas de Desarrollo & Vibe Coding
 - **Filosofía:** Código limpio, legible y modular. Aplicar principios de simplicidad (no sobreingeniería, evitar librerías pesadas innecesarias).
@@ -19,6 +19,15 @@ Este sitio web es una **landing page y hub digital para Supercarnes Néstor**, u
 - `npm run dev` - Iniciar servidor de desarrollo local.
 - `npm run build` - Verificar que la compilación de producción no tenga errores.
 - `npm run lint` - Ejecutar linter de código.
+- `npm run preview` - Compilar y probar el sitio en local con el motor de Cloudflare.
+- `npm run deploy` - Compilar y publicar el sitio en Cloudflare.
 
 ## 5. Estructura de Datos
 - Las sucursales se gestionan de forma centralizada en `src/data/branches.ts` (contiene nombre, dirección, ciudad, horario, teléfono y coordenadas/link a Google Maps).
+
+## 6. Hosting y Ramas
+- **Hosting:** Cloudflare Workers, en https://supercarnes-nestor.supercarnes-nestor.workers.dev (todavía sin dominio propio).
+- **Rama de trabajo:** `prueba-cloudflare`. Todo el trabajo nuevo va acá.
+- **Publicar:** GitHub todavía no está conectado a Cloudflare, así que `git push` no publica. Hay que correr `npm run deploy` con una sesión de Wrangler iniciada.
+- **`main` está congelada:** es el respaldo previo a la mudanza y GitHub rechaza cualquier cambio. No trabajar ni commitear ahí. El tag `respaldo-vercel-2026-11-04` marca ese mismo punto.
+- **Vercel:** no es el hosting actual. Sus menciones en `main` y en commits viejos son historia, no instrucciones.

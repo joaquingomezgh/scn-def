@@ -57,9 +57,9 @@ Al pasar `endsAt` la sección se oculta sola en el navegador, sin volver a publi
 
 ## Publicar
 
-1. Verificá que estás en `main` y traé lo último: `git pull --ff-only`.
+1. Verificá que estás en `prueba-cloudflare` y traé lo último: `git pull --ff-only`. Si estás en otra rama, no publiques ni cambies de rama por tu cuenta: avisá al usuario y preguntá cómo seguir. `npm run deploy` publica lo que hay en la carpeta, así que si `git status` muestra otros cambios sin guardar, frená y consultá.
 2. Hacé commit **sólo** de `src/data/offer.ts` y `public/ofertas/`, con mensaje en español:
    - `Cargar oferta especial: <producto> a $<precio> hasta el <día>`
    - `Quitar oferta especial`
-3. `git push`. Vercel publica solo en uno o dos minutos.
-4. Avisá al usuario que ya está publicada y que en un par de minutos se ve en la web.
+3. `git push`, y después `npm run deploy` para publicar en Cloudflare: el push solo no publica. Si Wrangler pide iniciar sesión, avisá al usuario y esperá.
+4. Avisá al usuario que ya está publicada recién cuando el deploy termine bien.
