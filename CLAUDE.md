@@ -1,7 +1,7 @@
 # Supercarnes Néstor - Web Hub
 
 ## 1. Propósito del Proyecto
-Este sitio web es una **landing page y hub digital para Supercarnes Néstor**, una red de muchas sucursales de carnicerías. El objetivo es ofrecer una plataforma moderna, ágil y mobile-first donde los clientes puedan conocer la propuesta de la marca, consultar la historia de la empresa, encontrar rápidamente direcciones, horarios, teléfonos y ubicaciones en Google Maps de cada sucursal, y contactarse de forma directa.
+Este sitio web es una **landing page y hub digital para Supercarnes Néstor**, una red de muchas sucursales de carnicerías. El objetivo es ofrecer una plataforma moderna, ágil y mobile-first donde los clientes puedan conocer la propuesta de la marca, consultar la historia de la empresa, encontrar rápidamente direcciones, horarios y ubicaciones en Google Maps de cada sucursal, y contactarse de forma directa.
 
 ## 2. Stack Tecnológico
 - **Framework:** Next.js (App Router, TypeScript).
@@ -23,7 +23,8 @@ Este sitio web es una **landing page y hub digital para Supercarnes Néstor**, u
 - `npm run deploy` - Compilar y publicar el sitio en Cloudflare.
 
 ## 5. Estructura de Datos
-- Las sucursales se gestionan de forma centralizada en `src/data/branches.ts` (contiene nombre, dirección, ciudad, horario, teléfono y coordenadas/link a Google Maps).
+- Las sucursales se gestionan de forma centralizada en `src/data/branches.ts` (contiene nombre, dirección, ciudad, horario y coordenadas/link a Google Maps).
+- Los encargos y reservas van a **un solo WhatsApp, el de la central** (`src/data/contact.ts`), que después le indica al cliente en qué sucursal retirar. Las sucursales no tienen número propio en la web: todo contacto va a ese WhatsApp.
 
 ## 6. Hosting y Ramas
 - **Hosting:** Cloudflare Workers, en https://supercarnes-nestor.supercarnes-nestor.workers.dev (todavía sin dominio propio).

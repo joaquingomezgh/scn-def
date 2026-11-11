@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { Clock, MapPin, Phone, Search } from "lucide-react";
+import { Clock, MapPin, MessageCircle, Search } from "lucide-react";
 import { branches } from "@/data/branches";
+import { whatsappLink } from "@/data/contact";
 
 // Leaflet necesita `window`, así que el mapa solo se carga en el navegador
 const BranchMap = dynamic(() => import("./BranchMap"), {
@@ -32,6 +33,26 @@ export default function BranchFinder() {
     <section id="sucursales" className="scroll-mt-16 bg-marmol">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <h2 className="font-display text-2xl font-bold sm:text-4xl">Nuestras sucursales</h2>
+
+        {/* Todas las sucursales comparten el WhatsApp de la central, que reparte los encargos */}
+        <div className="mt-6 flex flex-col gap-4 border border-linea bg-azulejo p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div>
+            <p className="font-semibold">Un solo WhatsApp para todas las sucursales</p>
+            <p className="mt-1 max-w-[52ch] text-gris">
+              Escribile a nuestra central para encargos y consultas. Te confirma el pedido y te
+              dice en qué sucursal retirarlo.
+            </p>
+          </div>
+          <a
+            href={whatsappLink("¡Hola Supercarnes Néstor! Quiero hacer un encargo: ")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-perejil px-6 py-3.5 font-semibold text-white hover:brightness-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-perejil"
+          >
+            <MessageCircle size={20} aria-hidden />
+            Escribinos por WhatsApp
+          </a>
+        </div>
 
         <label htmlFor="buscar" className="mt-8 block font-medium">
           Buscá por barrio, calle o nombre
@@ -104,13 +125,6 @@ export default function BranchFinder() {
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <a
-                    href={`tel:${b.phone.replace(/\D/g, "")}`}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-linea px-4 py-2 text-sm font-medium hover:border-carmesi hover:text-carmesi"
-                  >
-                    <Phone size={16} aria-hidden />
-                    Llamar
-                  </a>
                   <a
                     href={b.mapsUrl}
                     target="_blank"
