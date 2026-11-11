@@ -1,47 +1,70 @@
 // Fórmulas de la Calculadora de asado. Son cantidades orientativas: el carnicero las ajusta en el mostrador.
 
 export type Appetite = "liviano" | "normal" | "asadero";
-export type MeatMix = "vacuno" | "mix";
+export type PlanId = "clasico" | "rendidor" | "especial";
 
 export type AsadoInput = {
   men: number;
   women: number;
   kids: number;
   appetite: Appetite;
-  mix: MeatMix;
-  offal: boolean;
 };
 
 export type Line = { label: string; amount: string };
 
-// Gramos de carne por persona con apetito normal
+// Gramos de carne por persona con apetito normal (embutidos incluidos)
 const GRAMS = { men: 500, women: 400, kids: 250 };
 export const APPETITE = { liviano: 0.8, normal: 1, asadero: 1.2 };
 
-// Cómo se reparte la carne principal según el tipo de asado
-const CUTS: Record<MeatMix, [string, number][]> = {
-  vacuno: [
-    ["Vacío", 0.35],
-    ["Tapa de asado", 0.35],
-    ["Costillar", 0.3],
-  ],
-  mix: [
-    ["Vacío", 0.25],
-    ["Tapa de asado", 0.2],
-    ["Costillar", 0.15],
-    ["Bondiola o matambrito de cerdo", 0.25],
-    ["Pata y muslo de pollo", 0.15],
-  ],
+// Tres propuestas con los cortes que más lleva la gente: pocos cortes y en cantidades redondas.
+// `share` es la parte del corte principal; el resto va al segundo corte.
+type Plan = {
+  id: PlanId;
+  label: string;
+  description: string;
+  cuts: [main: string, second: string];
+  share: number;
+  morcilla: boolean;
 };
 
+export const PLANS: Plan[] = [
+  {
+    id: "clasico",
+    label: "Clásico",
+    description: "El de todos los domingos: tira de asado, vacío, chorizo y morcilla.",
+    cuts: ["Asado de tira", "Vacío"],
+    share: 0.6,
+    morcilla: true,
+  },
+  {
+    id: "rendidor",
+    label: "Rendidor",
+    description: "Para muchos sin gastar de más: tira de asado, pollo y chorizos.",
+    cuts: ["Asado de tira", "Pata y muslo de pollo"],
+    share: 0.6,
+    morcilla: false,
+  },
+  {
+    id: "especial",
+    label: "Especial",
+    description: "Para darse un gusto: vacío y entraña, con chorizos de entrada.",
+    cuts: ["Vacío", "Entraña"],
+    share: 0.65,
+    morcilla: false,
+  },
+];
+
 const SAUSAGE_KG = 0.1; // un chorizo o una morcilla pesa unos 100 g
+const STEP = 0.5; // los cortes se piden de a medio kilo
+const MIN_SECOND = 1; // con menos de 1 kg del segundo corte, conviene llevar uno solo
 
 const kgFmt = new Intl.NumberFormat("es-AR", { maximumFractionDigits: 2 });
 // Redondea para arriba al siguiente múltiplo de `step`: mejor que sobre a que falte
 const up = (n: number, step: number) => Math.ceil(n / step - 1e-9) * step;
 const kg = (n: number) => `${kgFmt.format(n)} kg`;
 
-export function calcAsado(i: AsadoInput) {
+export function calcAsado(i: AsadoInput, planId: PlanId) {
+  const plan = PLANS.find((p) => p.id === planId) ?? PLANS[0];
   const people = i.men + i.women + i.kids;
   const adults = i.men + i.women;
   const total =
@@ -49,32 +72,35 @@ export function calcAsado(i: AsadoInput) {
     APPETITE[i.appetite] /
     1000;
 
-  const chorizos = i.offal ? Math.ceil(adults + i.kids / 2) : 0;
-  const morcillas = i.offal ? Math.ceil(adults / 2) : 0;
-  const offalKg = i.offal ? up(adults * 0.08, 0.25) : 0;
+  // Un chorizo por adulto y uno cada dos chicos; una morcilla cada dos adultos
+  const chorizos = people === 0 ? 0 : Math.max(1, Math.ceil(adults + i.kids / 2));
+  const morcillas = plan.morcilla ? Math.ceil(adults / 2) : 0;
 
-  // Las achuras y embutidos reemplazan parte de la carne, sin bajar del 60 %
-  const meat = Math.max(total - (chorizos + morcillas) * SAUSAGE_KG - offalKg, total * 0.6);
-  const cuts: Line[] = CUTS[i.mix].map(([label, share]) => ({
-    label,
-    amount: kg(up(meat * share, 0.1)),
-  }));
+  // Los embutidos reemplazan parte de la carne, sin bajar del 70 %
+  const meat = up(Math.max(total - (chorizos + morcillas) * SAUSAGE_KG, total * 0.7), STEP);
+  // El segundo corte lleva al menos 1 kg; si no alcanza para eso, va un solo corte
+  const second = Math.max(meat - up(meat * plan.share, STEP), MIN_SECOND);
+  const main = meat - second;
+  const [mainCut, secondCut] = plan.cuts;
 
-  const extras: Line[] = i.offal
-    ? [
-        { label: "Chorizos", amount: `${chorizos} u.` },
-        { label: "Morcillas", amount: `${morcillas} u.` },
-        ...(offalKg > 0 ? [{ label: "Chinchulines, molleja y riñón", amount: kg(offalKg) }] : []),
-      ]
-    : [];
+  const cuts: Line[] =
+    meat === 0
+      ? []
+      : main < MIN_SECOND
+        ? [{ label: mainCut, amount: kg(meat) }]
+        : [
+            { label: mainCut, amount: kg(main) },
+            { label: secondCut, amount: kg(second) },
+          ];
 
-  const fire: Line[] = [
-    { label: "Carbón o leña", amount: kg(up(total * 1.5, 1)) },
-    { label: "Pan", amount: `${up(adults * 100 + i.kids * 50, 50)} g` },
-    { label: "Sal gruesa", amount: `${up(total * 20, 50)} g` },
+  const sausages: Line[] = [
+    ...(chorizos > 0 ? [{ label: "Chorizos", amount: `${chorizos} u.` }] : []),
+    ...(morcillas > 0 ? [{ label: "Morcillas", amount: `${morcillas} u.` }] : []),
   ];
 
-  return { people, total, cuts, extras, fire };
+  const fire: Line[] = people === 0 ? [] : [{ label: "Carbón", amount: kg(up(total * 1.5, 1)) }];
+
+  return { plan, people, total, lines: [...cuts, ...sausages, ...fire] };
 }
 
 export const formatKg = (n: number) => kgFmt.format(n);
