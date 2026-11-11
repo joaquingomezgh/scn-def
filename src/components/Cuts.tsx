@@ -11,7 +11,6 @@ const groups = [
 const services = [
   "Milanesas preparadas",
   "Hamburguesas caseras",
-  "Envasado al vacío",
   "Pedidos para eventos",
 ];
 

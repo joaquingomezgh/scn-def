@@ -29,25 +29,22 @@ const arts: Record<CutArtId, ReactNode> = {
       <path pathLength={1} className="relleno fill-white/75" d="M98 68 c4 -5 13 -4 14 2 c1 6 -7 9 -12 7 c-4 -1 -5 -6 -2 -9 Z" />
     </>
   ),
-  // El mismo ojo de bife, con el hueso largo de la costilla
-  tomahawk: (
+  // Lámina fina y ancha, de bordes irregulares, con la fibra a lo largo y algunas vetas de grasa
+  matambre: (
     <>
-      <path pathLength={1} className="relleno fill-white" d="M104 56 L172 50 L172 68 L104 74 Z" />
-      <circle pathLength={1} className="relleno fill-white" cx={177} cy={51} r={8} />
-      <circle pathLength={1} className="relleno fill-white" cx={177} cy={67} r={8} />
       <path
         pathLength={1}
         className={contorno}
-        d="M22 64 C18 40 44 26 74 28 C102 30 116 44 114 64 C113 84 96 96 72 96 C44 97 25 86 22 64 Z"
+        d="M24 46 C40 40 54 46 72 40 C94 33 112 40 134 33 C152 28 168 34 180 30 C186 50 184 70 180 96 C164 100 150 94 132 98 C110 102 92 94 72 98 C54 101 40 94 26 90 C20 76 20 60 24 46 Z"
       />
-      <path pathLength={1} className="trazo detalle stroke-white/85" strokeWidth={4} d="M30 52 C42 36 84 34 106 48" />
       <path
         pathLength={1}
         className={veta}
-        strokeWidth={1.75}
-        d="M76 68 c8 2 14 -2 22 2 M62 72 c-6 4 -12 2 -18 8 M68 63 c0 -6 -6 -7 -4 -12 M36 64 c5 2 9 -2 14 0 M84 82 c6 -2 9 2 14 -2"
+        d="M34 56 C70 50 120 50 172 42 M32 67 C76 64 124 66 176 62 M34 79 C78 80 124 82 174 82"
       />
-      <path pathLength={1} className="relleno fill-white/75" d="M62 64 c4 -5 13 -4 14 2 c1 6 -7 9 -12 7 c-4 -1 -5 -6 -2 -9 Z" />
+      <path pathLength={1} className={grasa} d="M118 44 c10 -5 26 -6 36 -2 c-8 7 -26 8 -36 2 Z" />
+      <path pathLength={1} className={grasa} d="M56 88 c9 -4 22 -3 30 2 c-8 5 -22 5 -30 -2 Z" />
+      <path pathLength={1} className={grasa} d="M140 88 c6 -3 16 -3 22 0 c-5 4 -16 5 -22 0 Z" />
     </>
   ),
   // Pieza ancha y chata, con la capa de grasa que queda crocante y la fibra a lo largo

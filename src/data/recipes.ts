@@ -2,7 +2,7 @@
 // TODO: validar recetas, tiempos y cantidades con la marca
 
 // Dibujos disponibles en CutArt: uno por cada corte que usan las recetas
-export type CutArtId = "ojo" | "tomahawk" | "vacio" | "cuadril" | "entrana" | "osobuco";
+export type CutArtId = "ojo" | "matambre" | "vacio" | "cuadril" | "entrana" | "osobuco";
 
 export type Recipe = {
   slug: string;
@@ -66,27 +66,28 @@ export const recipes: Recipe[] = [
     ],
   },
   {
-    slug: "tomahawk-manteca-hierbas",
-    title: "Tomahawk a la manteca de hierbas",
-    method: "parrilla",
-    cut: "Ojo de bife con hueso",
-    art: "tomahawk",
+    slug: "matambrito-a-la-pizza",
+    title: "Matambrito de cerdo a la pizza",
+    method: "horno",
+    cut: "Matambrito de cerdo",
+    art: "matambre",
     description:
-      "El corte para una ocasión especial: hueso largo, marmoleo generoso y un final de manteca y romero.",
-    time: "1 h",
-    servings: "2 a 3 personas",
-    order: "1 tomahawk (1,2 kg), encargalo",
+      "Tierno y rendidor: se dora en el horno y se termina con salsa, muzzarella y orégano.",
+    time: "50 min",
+    servings: "3 personas",
+    order: "1 matambrito de cerdo (1 kg)",
     ingredients: [
-      "1 tomahawk de 1,2 kg",
-      "Sal en escamas y pimienta negra",
-      "50 g de manteca",
-      "Romero, tomillo y 2 dientes de ajo",
+      "1 matambrito de cerdo de 1 kg",
+      "1 taza de salsa de tomate",
+      "250 g de muzzarella",
+      "1 morrón en tiras y aceitunas",
+      "Orégano, ají molido y sal",
     ],
     steps: [
-      "Cociná el tomahawk a fuego indirecto unos 40 minutos, hasta 50 °C en el centro.",
-      "Pasalo a fuego directo y fuerte 3 minutos por lado para formar costra.",
-      "Derretí la manteca con las hierbas y el ajo y bañá la carne en los últimos minutos.",
-      "Dejalo descansar 10 minutos, cortá en láminas y terminá con sal en escamas.",
+      "Precalentá el horno a 200 °C, salá el matambrito y ponelo en una placa con la grasa para abajo.",
+      "Horneá 25 minutos, dalo vuelta y cociná 10 minutos más, hasta que esté dorado.",
+      "Cubrilo con la salsa, la muzzarella y el morrón, y espolvoreá orégano y ají.",
+      "Volvé al horno 8 minutos, hasta que el queso se derrita, y cortá en porciones.",
     ],
   },
   {

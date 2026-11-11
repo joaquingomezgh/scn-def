@@ -20,7 +20,7 @@ const premium = [
   },
   {
     title: "Cortes especiales a pedido",
-    text: "Tomahawk, ojo de bife grueso o entraña limpia. Encargalos y te los tenemos listos.",
+    text: "Ojo de bife grueso, entraña limpia o matambre pelado. Encargalos y te los tenemos listos.",
   },
 ];
 
