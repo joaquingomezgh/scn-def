@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   title: "Supercarnes Néstor | Carnes de primera calidad",
   description:
-    "Cortes del día y atención de mostrador en 11 sucursales. Encontrá la más cercana, su horario y cómo llegar.",
+    "Cortes del día y atención de mostrador en 11 sucursales de San Francisco, Frontera y Devoto. Encontrá la más cercana, su horario y cómo llegar.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

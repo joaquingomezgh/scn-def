@@ -73,9 +73,9 @@ export default function SpecialOffer() {
     <div id="oferta" className="mt-12 scroll-mt-20 bg-carmesi text-white sm:mt-16">
       <div className="grid gap-x-16 gap-y-12 px-6 py-12 sm:px-10 sm:py-16 lg:grid-cols-[1fr_auto] lg:items-center">
         <div>
-          <h3 className="font-display text-[2.5rem] leading-[1.02] font-extrabold sm:text-6xl">
+          <h2 className="font-display text-[2.5rem] leading-[1.02] font-extrabold sm:text-6xl">
             Oferta especial
-          </h3>
+          </h2>
           <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-white/85">
             Cada tanto Néstor elige un corte y lo deja a un precio que no se repite. Dura pocos
             días: cuando llega a cero, vuelve a su precio de siempre.

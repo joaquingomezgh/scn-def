@@ -1,5 +1,4 @@
-// Fuente única de las sucursales.
-// TODO: reemplazar estos datos de ejemplo por los reales (direcciones, horarios y coordenadas).
+// Fuente única de las sucursales: 11 locales en San Francisco, Frontera y Devoto.
 
 export type Branch = {
   id: string;
@@ -16,18 +15,26 @@ export type Branch = {
 const directions = (lat: number, lng: number) =>
   `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
 
+// Horario común a toda la red.
+// Si alguna sucursal llega a tener otro horario, ponérselo aparte.
+const HORARIO = "7:30 a 13 h y 17:30 a 21 h";
+
+// Coordenadas tomadas de OpenStreetMap: la esquina exacta o la altura de la calle.
 const raw: Omit<Branch, "mapsUrl">[] = [
-  { id: "centro", name: "Centro", address: "Av. San Martín 1240", city: "San Francisco", hours: "Lun a sáb 8 a 21 h y dom 8 a 13 h", lat: -31.4268, lng: -62.0835 },
-  { id: "norte", name: "Barrio Norte", address: "Belgrano 862", city: "San Francisco", hours: "Lun a sáb 8 a 21 h", lat: -31.4165, lng: -62.087 },
-  { id: "plaza", name: "Plaza", address: "Rivadavia 455", city: "San Francisco", hours: "Lun a sáb 8 a 20:30 h", lat: -31.429, lng: -62.08 },
-  { id: "estacion", name: "Estación", address: "Mitre 2030", city: "San Francisco", hours: "Lun a sáb 8 a 21 h y dom 8 a 13 h", lat: -31.433, lng: -62.095 },
-  { id: "parque", name: "Parque", address: "Av. del Parque 318", city: "San Francisco", hours: "Lun a sáb 8:30 a 20 h", lat: -31.44, lng: -62.078 },
-  { id: "sur", name: "Zona Sur", address: "Moreno 1577", city: "San Francisco", hours: "Lun a sáb 8 a 21 h", lat: -31.445, lng: -62.088 },
-  { id: "oeste", name: "Oeste", address: "Sarmiento 3301", city: "San Francisco", hours: "Lun a sáb 8 a 20 h", lat: -31.425, lng: -62.105 },
-  { id: "jardin", name: "Jardín", address: "Las Heras 714", city: "San Francisco", hours: "Lun a sáb 8 a 20:30 h", lat: -31.42, lng: -62.075 },
-  { id: "frontera", name: "Frontera", address: "Calle 3 n.º 90", city: "Frontera", hours: "Lun a dom 8 a 21 h", lat: -31.4305, lng: -62.0625 },
-  { id: "freyre", name: "Freyre", address: "Bv. 25 de Mayo 902", city: "Freyre", hours: "Lun a sáb 8 a 21 h", lat: -31.164, lng: -62.0975 },
-  { id: "devoto", name: "Devoto", address: "Bv. Libertad 450", city: "Devoto", hours: "Lun a dom 8 a 21 h", lat: -31.404, lng: -62.3065 },
+  // San Francisco (Córdoba)
+  { id: "1-de-mayo", name: "1° de Mayo", address: "1° de Mayo y Bv. Sáenz Peña", city: "San Francisco", hours: HORARIO, lat: -31.4372, lng: -62.07644 },
+  { id: "saenz-pena", name: "Sáenz Peña", address: "Bv. Sáenz Peña 2157", city: "San Francisco", hours: HORARIO, lat: -31.43485, lng: -62.09122 },
+  { id: "garibaldi", name: "Garibaldi", address: "Av. Garibaldi y La Madrid", city: "San Francisco", hours: HORARIO, lat: -31.42142, lng: -62.07628 },
+  { id: "libertador", name: "Libertador Norte", address: "Av. Libertador Norte 1200", city: "San Francisco", hours: HORARIO, lat: -31.41873, lng: -62.08247 },
+  { id: "liniers", name: "Liniers", address: "Liniers y Av. 9 de Septiembre", city: "San Francisco", hours: HORARIO, lat: -31.4414, lng: -62.0764 },
+  { id: "caseros", name: "Caseros", address: "Caseros y 9 de Julio", city: "San Francisco", hours: HORARIO, lat: -31.42932, lng: -62.09723 },
+  { id: "rivadavia", name: "Rivadavia", address: "Antártida Argentina y Rivadavia", city: "San Francisco", hours: HORARIO, lat: -31.44409, lng: -62.08948 },
+  // Frontera (Santa Fe): calles numeradas
+  { id: "calle-70", name: "Calle 70", address: "Calle 1 y Calle 70", city: "Frontera", hours: HORARIO, lat: -31.42962, lng: -62.06561 },
+  { id: "calle-110", name: "Calle 110", address: "Calle 1 y Calle 110", city: "Frontera", hours: HORARIO, lat: -31.44566, lng: -62.07001 },
+  { id: "calle-100", name: "Calle 100", address: "Calle 100 n.º 395", city: "Frontera", hours: HORARIO, lat: -31.4413, lng: -62.0647 },
+  // Devoto (Córdoba)
+  { id: "devoto", name: "Devoto", address: "Bv. San Martín 244", city: "Devoto", hours: HORARIO, lat: -31.40403, lng: -62.30616 },
 ];
 
 export const branches: Branch[] = raw.map((b) => ({ ...b, mapsUrl: directions(b.lat, b.lng) }));

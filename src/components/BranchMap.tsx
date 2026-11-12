@@ -15,7 +15,7 @@ const pin = divIcon({
   popupAnchor: [0, -36],
 });
 
-// Encuadre fijo con todas las sucursales (San Francisco, Frontera, Freyre, Devoto)
+// Encuadre fijo con todas las sucursales (San Francisco, Frontera y Devoto)
 const zone = latLngBounds(branches.map((b) => [b.lat, b.lng]));
 
 export default function BranchMap({ items }: { items: Branch[] }) {

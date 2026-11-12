@@ -1,13 +1,5 @@
-import { MapPin } from "lucide-react";
 import Logo from "@/components/Logo";
-import OfferLink from "@/components/OfferLink";
-
-const links = [
-  { href: "#cortes", label: "Cortes" },
-  { href: "#recetas", label: "Recetas" },
-  { href: "#asadometro", label: "Calculadora de asado" },
-  { href: "#nosotros", label: "Nosotros" },
-];
+import SiteNav from "@/components/SiteNav";
 
 export default function Header() {
   return (
@@ -20,21 +12,7 @@ export default function Header() {
             Supercarnes Néstor
           </span>
         </a>
-        <nav className="flex items-center gap-6 text-sm font-medium">
-          <OfferLink />
-          {links.map((l) => (
-            <a key={l.href} href={l.href} className="hidden hover:text-carmesi sm:inline">
-              {l.label}
-            </a>
-          ))}
-          <a
-            href="#sucursales"
-            className="inline-flex items-center gap-1.5 rounded-full border border-tinta px-4 py-2 hover:border-carmesi hover:text-carmesi"
-          >
-            <MapPin size={16} aria-hidden />
-            Sucursales
-          </a>
-        </nav>
+        <SiteNav />
       </div>
     </header>
   );

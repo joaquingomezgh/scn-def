@@ -1,7 +1,7 @@
 // Fórmulas de la Calculadora de asado. Son cantidades orientativas: el carnicero las ajusta en el mostrador.
 
 export type Appetite = "liviano" | "normal" | "asadero";
-export type PlanId = "clasico" | "rendidor" | "especial";
+export type PlanId = "clasico" | "especial";
 
 export type AsadoInput = {
   men: number;
@@ -16,7 +16,7 @@ export type Line = { label: string; amount: string };
 const GRAMS = { men: 500, women: 400, kids: 250 };
 export const APPETITE = { liviano: 0.8, normal: 1, asadero: 1.2 };
 
-// Tres propuestas con los cortes que más lleva la gente: pocos cortes y en cantidades redondas.
+// Dos propuestas con los cortes que más lleva la gente: pocos cortes y en cantidades redondas.
 // `share` es la parte del corte principal; el resto va al segundo corte.
 type Plan = {
   id: PlanId;
@@ -35,14 +35,6 @@ export const PLANS: Plan[] = [
     cuts: ["Asado de tira", "Vacío"],
     share: 0.6,
     morcilla: true,
-  },
-  {
-    id: "rendidor",
-    label: "Rendidor",
-    description: "Para muchos sin gastar de más: tira de asado, pollo y chorizos.",
-    cuts: ["Asado de tira", "Pata y muslo de pollo"],
-    share: 0.6,
-    morcilla: false,
   },
   {
     id: "especial",

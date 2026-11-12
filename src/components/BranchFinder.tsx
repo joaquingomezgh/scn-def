@@ -55,7 +55,7 @@ export default function BranchFinder() {
         </div>
 
         <label htmlFor="buscar" className="mt-8 block font-medium">
-          Buscá por barrio, calle o nombre
+          Buscá por calle o ciudad
         </label>
         <div className="relative mt-2 max-w-xl">
           <Search
@@ -68,7 +68,7 @@ export default function BranchFinder() {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ej.: Centro, Belgrano…"
+            placeholder="Ej.: Caseros, Frontera…"
             className="w-full rounded-full border border-linea bg-azulejo py-3 pr-4 pl-12 text-base outline-none focus:border-carmesi focus:ring-2 focus:ring-carmesi/20"
           />
         </div>
@@ -100,8 +100,8 @@ export default function BranchFinder() {
 
         {results.length === 0 ? (
           <p className="mt-6 border border-linea bg-azulejo p-6">
-            No hay sucursales que coincidan con «{query}». Probá con el nombre del barrio o de la
-            calle.
+            No hay sucursales que coincidan con «{query}». Probá con el nombre de la calle o de la
+            ciudad.
           </p>
         ) : view === "mapa" ? (
           <div className="mt-6">

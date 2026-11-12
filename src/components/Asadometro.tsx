@@ -6,9 +6,9 @@ import { calcAsado, formatKg, PLANS, type AsadoInput, type Line, type PlanId } f
 import { whatsappLink } from "@/data/contact";
 
 const diners = [
-  { key: "men", label: "Hombres", one: "un hombre", word: ["hombre", "hombres"], hint: "500 g c/u" },
-  { key: "women", label: "Mujeres", one: "una mujer", word: ["mujer", "mujeres"], hint: "400 g c/u" },
-  { key: "kids", label: "Niños", one: "un niño", word: ["niño", "niños"], hint: "250 g c/u" },
+  { key: "men", label: "Hombres", one: "un hombre", hint: "500 g c/u" },
+  { key: "women", label: "Mujeres", one: "una mujer", hint: "400 g c/u" },
+  { key: "kids", label: "Niños", one: "un niño", hint: "250 g c/u" },
 ] as const;
 
 const appetites = [
@@ -16,6 +16,10 @@ const appetites = [
   { id: "normal", label: "Normal" },
   { id: "asadero", label: "Mucho" },
 ] as const;
+
+// Las tres propuestas son recomendaciones; "A mi gusto" deja que el cliente escriba su pedido
+type Pick = PlanId | "manual";
+const picks: { id: Pick; label: string }[] = [...PLANS, { id: "manual", label: "A mi gusto" }];
 
 const MAX = 40;
 const RANGES = [5, 10, 20, 40, 80];
@@ -134,6 +138,31 @@ function TicketLines({ lines }: { lines: Line[] }) {
   );
 }
 
+// Vista previa del chat para "A mi gusto": el primer mensaje sale solo y el pedido va en otro aparte
+function ManualSteps({ message }: { message: string }) {
+  return (
+    <ol className="mt-6 space-y-4 border-t border-dashed border-gris/40 pt-5">
+      <li>
+        <p className="text-sm font-semibold">1. Mandás este mensaje</p>
+        <p className="mt-2 ml-auto max-w-[34ch] rounded-2xl rounded-tr-sm bg-perejil/12 px-4 py-3 text-[0.95rem] leading-snug">
+          {message}
+        </p>
+      </li>
+      <li>
+        <p className="text-sm font-semibold">2. Abajo, en otro mensaje, escribís tu pedido</p>
+        <div className="mt-2 ml-auto max-w-[34ch] rounded-2xl rounded-tr-sm border-2 border-dashed border-perejil/50 px-4 py-3 text-[0.95rem] leading-snug">
+          <p className="text-sm text-gris">Por ejemplo:</p>
+          <p className="mt-1">
+            2 kg de vacío
+            <br />1 kg de entraña
+            <br />6 chorizos y 3 morcillas
+          </p>
+        </div>
+      </li>
+    </ol>
+  );
+}
+
 export default function Asadometro() {
   const [input, setInput] = useState<AsadoInput>({
     men: 3,
@@ -141,22 +170,22 @@ export default function Asadometro() {
     kids: 2,
     appetite: "normal",
   });
-  const [planId, setPlanId] = useState<PlanId>("clasico");
+  const [pick, setPick] = useState<Pick>("clasico");
   const set = (patch: Partial<AsadoInput>) => setInput((prev) => ({ ...prev, ...patch }));
 
-  const r = calcAsado(input, planId);
+  const manual = pick === "manual";
+  const r = calcAsado(input, manual ? "clasico" : pick);
   const total = Math.round(r.total * 10) / 10;
 
-  // Pedido armado para la central de encargos, que después indica en qué sucursal retirarlo
-  const who = diners
-    .filter((d) => input[d.key] > 0)
-    .map((d) => `${input[d.key]} ${d.word[input[d.key] === 1 ? 0 : 1]}`)
-    .join(", ");
-  const message = [
-    `¡Hola Supercarnes Néstor! Armé un asado en la calculadora para ${r.people} ${r.people === 1 ? "persona" : "personas"} (${who}) y quiero encargar el ${r.plan.label.toLowerCase()}:`,
-    ...r.lines.map((l) => `• ${l.label}: ${l.amount}`),
-    "¿En qué sucursal lo puedo retirar? ¡Gracias!",
-  ].join("\n");
+  // Pedido corto para la central de encargos, que después indica en qué sucursal retirarlo.
+  // A mi gusto: el cliente avisa y manda los cortes en un mensaje aparte
+  const forWhom = `${r.people} ${r.people === 1 ? "persona" : "personas"}`;
+  const message = manual
+    ? `¡Hola! Quiero encargar un asado para ${forWhom}, armado a mi gusto. Les paso los cortes en el próximo mensaje.`
+    : [
+        `¡Hola! Quiero encargar el asado ${r.plan.label.toLowerCase()} para ${forWhom}:`,
+        ...r.lines.map((l) => `• ${l.label}: ${l.amount}`),
+      ].join("\n");
 
   return (
     <section id="asadometro" className="scroll-mt-16 bg-marmol">
@@ -165,7 +194,8 @@ export default function Asadometro() {
           Calculadora de asado
         </h2>
         <p className="mt-5 max-w-[52ch] text-lg leading-relaxed text-gris">
-          Decinos cuántos son, elegí una de las tres propuestas y encargala por WhatsApp.
+          Decinos cuántos son y te recomendamos qué llevar. Encargá una propuesta tal cual o armá
+          el asado a tu gusto por WhatsApp.
         </p>
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2 lg:items-start">
@@ -242,19 +272,42 @@ export default function Asadometro() {
               </p>
             ) : (
               <>
-                <h3 className="font-display text-xl font-extrabold">Elegí tu asado</h3>
+                <h3 className="font-display text-xl font-extrabold">¿Qué llevás?</h3>
                 <div className="mt-4">
-                  <Choice options={PLANS} value={planId} onChange={setPlanId} />
+                  <Choice options={picks} value={pick} onChange={setPick} />
                 </div>
                 <p className="mt-4 text-gris" aria-live="polite">
-                  {r.plan.description}
+                  {manual ? "Vos elegís los cortes y cuánto de cada uno." : r.plan.description}
                 </p>
                 <div className="mt-4">
-                  <TicketLines lines={r.lines} />
+                  <TicketLines
+                    lines={
+                      manual
+                        ? [
+                            { label: "Carne en total", amount: `${formatKg(total)} kg` },
+                            ...r.lines.filter((l) => l.label === "Carbón"),
+                          ]
+                        : r.lines
+                    }
+                  />
                 </div>
                 <p className="mt-4 text-sm text-gris">
-                  Son cantidades orientativas. En el mostrador te ayudamos a ajustarlas.
+                  {manual ? (
+                    "El total es una referencia para que no te quedes corto."
+                  ) : (
+                    <>
+                      Son recomendaciones. ¿Preferís otros cortes u otras cantidades?{" "}
+                      <button
+                        type="button"
+                        onClick={() => setPick("manual")}
+                        className="font-semibold text-carmesi underline underline-offset-2 hover:text-carmesi-oscuro focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-carmesi"
+                      >
+                        Armalo a tu gusto
+                      </button>
+                    </>
+                  )}
                 </p>
+                {manual && <ManualSteps message={message} />}
                 <a
                   href={whatsappLink(message)}
                   target="_blank"
@@ -265,8 +318,9 @@ export default function Asadometro() {
                   Encargar por WhatsApp
                 </a>
                 <p className="mt-3 text-center text-sm text-gris">
-                  El pedido llega a nuestra central de encargos, que te confirma y te dice en qué
-                  sucursal retirarlo.
+                  {manual
+                    ? "La central te confirma y te dice en qué sucursal retirarlo."
+                    : "El pedido llega a nuestra central de encargos, que te confirma y te dice en qué sucursal retirarlo."}
                 </p>
               </>
             )}

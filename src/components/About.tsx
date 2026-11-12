@@ -1,22 +1,26 @@
 import CowChart from "@/components/CowChart";
 
-// TODO: reemplazar por la historia real de la marca (años, sucursales, hitos)
-const milestones = [
-  { year: "1987", text: "Néstor abre su primer mostrador en el Centro, con una sierra, una balanza y clientes del barrio." },
-  { year: "1999", text: "Se suma la familia y abrimos la segunda sucursal, en Barrio Norte." },
-  { year: "2012", text: "Instalamos cámara de maduración propia y empezamos con los cortes premium." },
-  { year: "Hoy", text: "Somos 11 sucursales y seguimos eligiendo la carne con el mismo criterio." },
+// Datos firmes: unos 30 años en el rubro (empezó en Frontera), 11 sucursales, 3 ciudades y Caseros abierta en 2024
+const stats = [
+  { value: "30", label: "años en el rubro" },
+  { value: "11", label: "sucursales" },
+  { value: "3", label: "ciudades" },
 ];
 
-// TODO: confirmar con la marca qué ofrece realmente en su línea premium
+const milestones = [
+  { year: "2000s", text: "Néstor abre su primer mostrador en Frontera, con una sierra, una balanza y los vecinos de la cuadra como clientes." },
+  { year: "2010s", text: "Se suma la familia, cruzamos a San Francisco y la carnicería se multiplica por sus barrios. Después llegamos a Devoto, siempre con el mismo criterio para elegir la carne." },
+  { year: "2024", text: "Abrimos Caseros y 9 de Julio, la más nueva. Hoy somos 11 sucursales en 3 ciudades." },
+];
+
 const premium = [
   {
     title: "Hacienda elegida en origen",
     text: "Compramos a productores que conocemos y revisamos cada media res antes de que llegue al local.",
   },
   {
-    title: "Maduración en cámara",
-    text: "Los cortes premium descansan en frío los días necesarios para ganar terneza y sabor.",
+    title: "Frío de punta a punta",
+    text: "La carne viaja y descansa en cámara a temperatura controlada, del frigorífico a tu mostrador.",
   },
   {
     title: "Cortes especiales a pedido",
@@ -35,15 +39,28 @@ export default function About() {
             </h2>
             <div className="mt-6 max-w-[52ch] space-y-5 text-lg leading-relaxed text-gris">
               <p>
-                Supercarnes Néstor empezó como un mostrador atendido por su dueño, que conocía a
-                cada cliente por su nombre y sabía qué corte llevaba para el domingo.
+                Hace unos 30 años, Supercarnes Néstor empezó en Frontera como un mostrador atendido
+                por su dueño, que conocía a cada cliente por su nombre y sabía qué corte llevaba
+                para el domingo.
               </p>
               <p>
-                La vaca dibujada en nuestro cartel viene de esa época: Néstor quería que se
-                supiera que acá se trabaja el animal entero, con oficio, y no cajas de cortes
-                sueltos.
+                Hoy estamos en Frontera, San Francisco y Devoto, y seguimos trabajando igual: el
+                animal entero, cortado en el momento y con gente de oficio del otro lado del
+                mostrador. La vaca de nuestro cartel está ahí para recordarlo.
               </p>
             </div>
+
+            {/* Las cifras de la casa, a la vista */}
+            <dl className="mt-8 grid max-w-md grid-cols-3 border-y border-linea">
+              {stats.map((s) => (
+                <div key={s.label} className="flex flex-col py-5 not-first:border-l not-first:border-linea not-first:pl-4">
+                  <dt className="text-sm text-gris">{s.label}</dt>
+                  <dd className="font-display -order-1 text-3xl font-extrabold text-carmesi sm:text-4xl">
+                    {s.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           {/* Una línea de tiempo: acá los años sí son una secuencia */}

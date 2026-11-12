@@ -51,12 +51,14 @@ export default function WeeklyOffers() {
 
   return (
     <div id="ofertas-semana" className="scroll-mt-16">
-      {/* Sigue el cartel blanco de la sección: va pegado debajo, sin borde propio arriba */}
-      <div className="grid gap-8 border border-t-0 border-linea bg-azulejo p-6 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
+      {/* El cartel blanco con el título y la cuenta regresiva */}
+      <div className="grid gap-8 border border-linea bg-azulejo p-6 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
         <div>
-          <h3 className="font-display max-w-[13ch] text-[2.5rem] leading-[1.02] font-extrabold sm:text-6xl">
-            De la semana
-          </h3>
+          <h2 className="font-display text-[2.5rem] leading-[1.02] font-extrabold sm:text-6xl lg:text-7xl">
+            {/* El corte va antes de "de la semana" para no partir la frase en un lugar raro */}
+            Ofertas <br />
+            de la semana
+          </h2>
           <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-gris">
             Valen hasta el {closing(weekly.endsAt)} h. {weekly.terms}
           </p>

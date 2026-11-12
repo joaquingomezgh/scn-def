@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import QuickLinks from "@/components/QuickLinks";
 
 export default function Hero() {
   return (
@@ -20,26 +21,11 @@ export default function Hero() {
             En nuestras 11 sucursales cortamos en el momento lo que te llevás, con el espesor y el
             peso que necesites.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
-              href="#sucursales"
-              className="rounded-full bg-carmesi px-6 py-3 text-center font-semibold text-white hover:bg-carmesi-oscuro"
-            >
-              Encontrá tu sucursal
-            </a>
-            <a
-              href="#cortes"
-              className="rounded-full border border-tinta px-6 py-3 text-center font-semibold hover:border-carmesi hover:text-carmesi"
-            >
-              Ver cortes
-            </a>
-            <a
-              href="#recetas"
-              className="rounded-full border border-tinta px-6 py-3 text-center font-semibold hover:border-carmesi hover:text-carmesi"
-            >
-              Recetas de la casa
-            </a>
-          </div>
+        </div>
+
+        {/* Los azulejos son la entrada a cada sección, en mobile y en escritorio */}
+        <div className="lg:order-last lg:col-span-2">
+          <QuickLinks />
         </div>
       </div>
     </section>
