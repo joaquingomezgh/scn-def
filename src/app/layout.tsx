@@ -13,9 +13,10 @@ const archivo = Archivo({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
-  title: "Supercarnes Néstor | Carnes de primera calidad",
+  // El título y la descripción llevan lo que la gente escribe en Google: "carnicería" y la ciudad
+  title: "Supercarnes Néstor | Carnicería en San Francisco, Frontera y Devoto",
   description:
-    "Cortes del día y atención de mostrador en 11 sucursales de San Francisco, Frontera y Devoto. Encontrá la más cercana, su horario y cómo llegar.",
+    "Carnicería con 11 sucursales en San Francisco, Frontera y Devoto. Cortes del día a tu medida, encargos por WhatsApp, horarios y cómo llegar a cada local.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

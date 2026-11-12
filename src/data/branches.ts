@@ -17,7 +17,7 @@ const directions = (lat: number, lng: number) =>
 
 // Horario común a toda la red.
 // Si alguna sucursal llega a tener otro horario, ponérselo aparte.
-const HORARIO = "7:30 a 13 h y 17:30 a 21 h";
+export const HORARIO = "7:30 a 13 h y 17:30 a 21 h";
 
 // Coordenadas tomadas de OpenStreetMap: la esquina exacta o la altura de la calle.
 const raw: Omit<Branch, "mapsUrl">[] = [

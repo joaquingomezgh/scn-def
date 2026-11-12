@@ -18,8 +18,8 @@ export default function Hero() {
             Carnes de primera calidad.
           </h1>
           <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-gris">
-            En nuestras 11 sucursales cortamos en el momento lo que te llevás, con el espesor y el
-            peso que necesites.
+            Somos una carnicería de San Francisco, Frontera y Devoto. En nuestras 11 sucursales
+            cortamos en el momento lo que te llevás, con el espesor y el peso que necesites.
           </p>
         </div>
 

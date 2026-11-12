@@ -3,7 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { Clock, MapPin, MessageCircle, Search } from "lucide-react";
-import { branches } from "@/data/branches";
+import { branches, HORARIO } from "@/data/branches";
 import { whatsappLink } from "@/data/contact";
 
 // Leaflet necesita `window`, así que el mapa solo se carga en el navegador
@@ -33,6 +33,10 @@ export default function BranchFinder() {
     <section id="sucursales" className="scroll-mt-16 bg-marmol">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
         <h2 className="font-display text-2xl font-bold sm:text-4xl">Nuestras sucursales</h2>
+        <p className="mt-4 max-w-[56ch] leading-relaxed text-gris">
+          Carnicerías en San Francisco y Devoto (Córdoba) y en Frontera (Santa Fe). Todas abren de{" "}
+          {HORARIO}.
+        </p>
 
         {/* Todas las sucursales comparten el WhatsApp de la central, que reparte los encargos */}
         <div className="mt-6 flex flex-col gap-4 border border-linea bg-azulejo p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">

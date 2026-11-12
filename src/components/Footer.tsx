@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import { WHATSAPP_VISIBLE, whatsappLink } from "@/data/contact";
 
 export default function Footer() {
   return (
@@ -9,10 +10,22 @@ export default function Footer() {
           <p>
             <span className="font-display font-extrabold text-tinta">Supercarnes Néstor</span>
             <br />
-            Carnes de primera calidad.
+            Carnicería en San Francisco, Frontera y Devoto.
           </p>
         </div>
-        <p>© 2026 Supercarnes Néstor</p>
+        {/* El teléfono escrito en texto: Google lo cruza con las fichas de Google Maps */}
+        <p className="sm:text-right">
+          WhatsApp de encargos:{" "}
+          <a
+            href={whatsappLink("¡Hola Supercarnes Néstor! ")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-tinta hover:text-carmesi"
+          >
+            {WHATSAPP_VISIBLE}
+          </a>
+          <br />© 2026 Supercarnes Néstor
+        </p>
       </div>
     </footer>
   );
