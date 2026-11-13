@@ -1,15 +1,15 @@
 "use client";
 
 import SpecialOffer from "@/components/SpecialOffer";
-import { useActiveOffer, useActiveWeekly } from "@/components/useActiveOffer";
+import { useActiveOffer } from "@/components/useActiveOffer";
 import WeeklyOffers from "@/components/WeeklyOffers";
+import { weeklyOffers } from "@/data/weeklyOffers";
 
-// Una sola pared de ofertas: primero las de la semana y después la especial. Cada bloque se oculta
-// solo cuando vence; si no queda ninguno, la sección entera desaparece
+// Una sola pared de ofertas: primero las de la semana y después la especial. La especial se oculta sola
+// cuando vence; las de la semana, cuando se dejan en null. Si no queda ninguna, la sección entera desaparece
 export default function Offers() {
-  const { weekly } = useActiveWeekly();
   const { offer } = useActiveOffer();
-  if (!weekly && !offer) return null;
+  if (!weeklyOffers && !offer) return null;
 
   return (
     <section id="ofertas" className="azulejos scroll-mt-16 overflow-hidden">

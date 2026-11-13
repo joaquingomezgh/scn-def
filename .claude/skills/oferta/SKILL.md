@@ -45,14 +45,15 @@ Al pasar `endsAt` la sección se oculta sola en el navegador, sin volver a publi
 ## Quitar la oferta (`/oferta quitar`)
 
 1. Dejá `export const offer: Offer | null = null;` (manteniendo el tipo y los comentarios del archivo).
-2. Borrá las fotos de `public/ofertas/` que ya no se usen.
+2. Borrá sólo la foto que se copió para esta oferta (`<corte>-<año>-<mes>`). Las de la biblioteca de cortes (sin fecha en el nombre) quedan siempre.
 3. Confirmá con el usuario y publicá.
 
 ## Foto
 
+- Primero fijate si el corte ya está en la biblioteca, `public/ofertas/*.webp` (fotos sin fondo, sin fecha en el nombre, por ejemplo `vacio.webp`): si está, usá esa ruta y no copies nada.
 - El usuario pasa la **ruta del archivo** en su computadora (por ejemplo `C:\Users\...\Downloads\vacio.jpg`) o la deja directamente en `public/ofertas/`. Una imagen pegada en el chat no se puede guardar como archivo: si la pegan, pedí que la guarden y pasen la ruta.
 - Copiála a `public/ofertas/<corte>-<año>-<mes>.<ext>` en minúsculas y sin acentos ni espacios (`vacio-2026-11.jpg`), y poné `image: "/ofertas/vacio-2026-11.jpg"`.
-- Borrá la foto de la oferta anterior si ya no se usa (queda en el historial de git).
+- Borrá la foto de la oferta anterior si ya no se usa (queda en el historial de git), salvo que sea de la biblioteca de cortes.
 - Se muestra recortada en 4:3 dentro del cartel: avisá si la foto es muy vertical y el corte podría quedar cortado.
 
 ## Publicar

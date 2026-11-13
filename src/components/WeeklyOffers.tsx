@@ -1,11 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { MapPin, MessageCircle } from "lucide-react";
-import Countdown from "@/components/Countdown";
-import { closing, NARROW, pesos } from "@/components/promoFormat";
-import { useActiveWeekly } from "@/components/useActiveOffer";
+import { NARROW, pesos } from "@/components/promoFormat";
 import { whatsappLink } from "@/data/contact";
-import type { WeeklyItem } from "@/data/weeklyOffers";
+import { weeklyOffers as weekly, type WeeklyItem } from "@/data/weeklyOffers";
 
 // Las cartulinas, en tonos de carne: cada una lleva el color de texto que se lee bien sobre ese fondo.
 // El color y la inclinación salen de la posición, nunca de los datos.
@@ -21,13 +20,32 @@ const TILTS = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "rotate-[0.5deg
 function Paper({ item, index }: { item: WeeklyItem; index: number }) {
   return (
     <li
-      className={`@container relative flex min-w-0 grow basis-[calc(50%-0.5rem)] flex-col px-3 pt-5 pb-3 shadow-[0_10px_20px_rgb(43_34_32/0.22)] sm:px-5 sm:pt-7 sm:pb-4 lg:basis-[calc(25%-1.25rem)] ${PAPERS[index % PAPERS.length]} ${TILTS[index % TILTS.length]}`}
+      className={`cartulina @container relative flex min-w-0 grow basis-[calc(50%-0.5rem)] flex-col px-3 pt-5 pb-3 shadow-[0_10px_20px_rgb(43_34_32/0.22)] transition-transform duration-300 sm:px-5 sm:pt-7 sm:pb-4 lg:basis-[calc(25%-1.25rem)] ${PAPERS[index % PAPERS.length]} ${TILTS[index % TILTS.length]}`}
     >
       {/* Cinta de papel que sostiene la cartulina en los azulejos */}
       <span
         className="absolute -top-2 left-1/2 h-4 w-14 -translate-x-1/2 -rotate-2 bg-[#efe6cf]/85 shadow-[0_1px_2px_rgb(43_34_32/0.2)] sm:w-20"
         aria-hidden
       />
+
+      {/* El corte recortado, como una calcomanía que flota sobre la cartulina. Cada uno arranca en otro
+          momento del vaivén para que la pared no se mueva toda junta */}
+      {item.image && (
+        <div className="relative -mx-2 mt-1 mb-3 aspect-[4/3] sm:-mx-3">
+          <span className="corte-sombra" style={{ animationDelay: `${index * -0.7}s` }} aria-hidden />
+          <div className="corte-flota absolute inset-0" style={{ animationDelay: `${index * -0.7}s` }}>
+            <div className="corte-pieza relative size-full">
+              <Image
+                src={item.image}
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 280px, (min-width: 640px) 45vw, 50vw"
+                className="corte-calco object-contain object-bottom"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <h4 className="font-display text-[min(11.5cqw,1.75rem)] leading-[1.1] font-extrabold hyphens-auto">
         {item.product}
@@ -46,29 +64,18 @@ function Paper({ item, index }: { item: WeeklyItem; index: number }) {
 }
 
 export default function WeeklyOffers() {
-  const { weekly, secondsLeft } = useActiveWeekly();
   if (!weekly) return null;
 
   return (
     <div id="ofertas-semana" className="scroll-mt-16">
-      {/* El cartel blanco con el título y la cuenta regresiva */}
-      <div className="grid gap-8 border border-linea bg-azulejo p-6 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
-        <div>
-          <h2 className="font-display text-[2.5rem] leading-[1.02] font-extrabold sm:text-6xl lg:text-7xl">
-            {/* El corte va antes de "de la semana" para no partir la frase en un lugar raro */}
-            Ofertas <br />
-            de la semana
-          </h2>
-          <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-gris">
-            Valen hasta el {closing(weekly.endsAt)} h. {weekly.terms}
-          </p>
-        </div>
-        <div className="text-carmesi">
-          <p className="font-semibold text-tinta">Terminan en</p>
-          <div className="mt-3">
-            <Countdown seconds={secondsLeft} />
-          </div>
-        </div>
+      {/* El cartel blanco con el título */}
+      <div className="border border-linea bg-azulejo p-6 sm:p-10">
+        <h2 className="font-display text-[2.5rem] leading-[1.02] font-extrabold sm:text-6xl lg:text-7xl">
+          {/* El corte va antes de "de la semana" para no partir la frase en un lugar raro */}
+          Ofertas <br />
+          de la semana
+        </h2>
+        <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-gris">{weekly.terms}</p>
       </div>
 
       {/* Las cartulinas crecen hasta llenar su fila: con 6 o con 7 la pared queda siempre completa */}

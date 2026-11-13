@@ -1,6 +1,5 @@
 import { useSyncExternalStore } from "react";
 import { offer } from "@/data/offer";
-import { weeklyOffers } from "@/data/weeklyOffers";
 
 // Reloj que avanza de a un segundo. En el servidor no hay hora: la cuenta arranca al cargar la página
 const tick = (cb: () => void) => {
@@ -26,9 +25,4 @@ function useActive<T extends { endsAt: string }>(promo: T | null) {
 export function useActiveOffer() {
   const { promo, secondsLeft } = useActive(offer);
   return { offer: promo, secondsLeft };
-}
-
-export function useActiveWeekly() {
-  const { promo, secondsLeft } = useActive(weeklyOffers);
-  return { weekly: promo, secondsLeft };
 }

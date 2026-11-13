@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<title>Post lanzamiento web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=block" rel="stylesheet">
+<style>
+  /* Paleta de la web (src/app/globals.css) */
+  :root {
+    --azulejo: #ffffff;
+    --marmol: #f4f3f0;
+    --tinta: #2b2220;
+    --gris: #6e625d;
+    --linea: #e3dfd9;
+    --carmesi: #a3162e;
+    --carmesi-oscuro: #7e0f22;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Lienzo de Instagram 4:5 */
+  body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    position: relative;
+    font-family: "Archivo", system-ui, sans-serif;
+    color: var(--tinta);
+    background: var(--marmol);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .display { font-variation-settings: "wdth" 125; letter-spacing: -0.015em; }
+
+  /* Toldo a rayas con festón, igual que en la web pero a escala del post */
+  .toldo {
+    position: absolute; inset: 0 0 auto 0;
+    filter: drop-shadow(0 2px 0 #d6cfc6) drop-shadow(0 12px 16px rgb(43 34 32 / 0.12));
+  }
+  .toldo::before {
+    --ancho: 54px;
+    content: "";
+    display: block;
+    height: 96px;
+    background: repeating-linear-gradient(90deg,
+      var(--carmesi) 0 var(--ancho),
+      var(--azulejo) var(--ancho) calc(var(--ancho) * 2));
+    mask:
+      linear-gradient(#000 0 0) top / 100% calc(100% - var(--ancho) / 2 + 1px) no-repeat,
+      radial-gradient(circle at 50% 0, #000 calc(var(--ancho) / 2), transparent calc(var(--ancho) / 2 + 0.5px))
+        bottom / var(--ancho) calc(var(--ancho) / 2) repeat-x;
+  }
+
+  .contenido { position: absolute; left: 84px; right: 84px; top: 176px; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 22px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--carmesi);
+  }
+  .eyebrow::before { content: ""; width: 40px; height: 3px; background: var(--carmesi); }
+
+  h1 {
+    margin-top: 26px;
+    font-size: 124px; line-height: 0.96; font-weight: 800;
+  }
+  h1 em { font-style: normal; color: var(--carmesi); }
+  .bajada { margin-top: 30px; font-size: 34px; line-height: 1.3; color: var(--gris); }
+  .bajada b { color: var(--tinta); font-weight: 600; }
+
+  /* Lo que se puede hacer en la web */
+  .lista { list-style: none; margin-top: 54px; width: 470px; }
+  .lista li {
+    display: grid; grid-template-columns: 44px 1fr; column-gap: 22px;
+    padding: 22px 0;
+    border-top: 2px solid var(--linea);
+  }
+  .lista li:last-child { border-bottom: 2px solid var(--linea); }
+  .lista svg { width: 34px; height: 34px; margin-top: 2px; color: var(--carmesi); }
+  .lista b { display: block; font-size: 29px; font-weight: 700; line-height: 1.2; }
+  .lista span { display: block; margin-top: 4px; font-size: 22px; line-height: 1.35; color: var(--gris); }
+
+  /* Llamado al pie */
+  .link { position: absolute; left: 84px; bottom: 78px; }
+  .link small { display: block; font-size: 22px; color: var(--gris); }
+  .link strong {
+    display: flex; align-items: center; gap: 14px; margin-top: 8px;
+    font-size: 35px; font-weight: 800;
+  }
+  .link strong svg { width: 34px; height: 34px; color: var(--carmesi); }
+
+  /* Celular con la web, asomando desde abajo */
+  .celu {
+    position: absolute; right: 84px; top: 592px;
+    width: 396px; padding: 13px;
+    background: var(--tinta);
+    border-radius: 62px;
+    box-shadow: 0 2px 0 #1a1413, 0 40px 70px -20px rgb(43 34 32 / 0.45), 0 18px 30px -12px rgb(43 34 32 / 0.25);
+  }
+  .pantalla {
+    position: relative; overflow: hidden;
+    padding-top: 54px; border-radius: 50px; background: var(--azulejo);
+  }
+  .pantalla::before {
+    content: ""; position: absolute; top: 14px; left: 50%; translate: -50% 0;
+    width: 110px; height: 30px; border-radius: 20px; background: var(--tinta);
+  }
+  .pantalla img { display: block; width: 100%; }
+</style>
+</head>
+<body>
+  <div class="toldo" aria-hidden="true"></div>
+
+  <div class="contenido">
+    <p class="eyebrow">Lanzamiento</p>
+    <h1 class="display">Estrenamos<br><em>página web.</em></h1>
+    <p class="bajada">El mostrador de Néstor, <b>ahora en tu celular.</b></p>
+
+    <ul class="lista">
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+        <div><b>Ofertas de la semana</b><span>Los precios del mostrador, al día.</span></div>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+        <div><b>Armá tu asado</b><span>Elegí la propuesta y encargala por WhatsApp.</span></div>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"/><path d="M6 17h12"/></svg>
+        <div><b>Cortes y recetas</b><span>Qué pedir y cómo cocinarlo.</span></div>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><b>Nuestras 11 sucursales</b><span>Horarios y cómo llegar.</span></div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="link">
+    <small>Entrá desde el link de la bio</small>
+    <strong>supercarnesnestor.com
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </strong>
+  </div>
+
+  <div class="celu"><div class="pantalla"><img src="captura-web.png" alt=""></div></div>
+</body>
+</html>

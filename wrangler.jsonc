@@ -4,6 +4,15 @@
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-11-03",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  // Dominio propio: Cloudflare lo conecta al Worker y genera el HTTPS en cada deploy
+  "routes": [
+    { "pattern": "supercarnesnestor.com", "custom_domain": true },
+    // www también responde; en el panel de Cloudflare una regla lo redirige al dominio sin www
+    { "pattern": "www.supercarnesnestor.com", "custom_domain": true }
+  ],
+  // La dirección vieja de workers.dev y los links de vista previa quedan apagados
+  "workers_dev": false,
+  "preview_urls": false,
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"

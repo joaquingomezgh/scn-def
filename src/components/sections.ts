@@ -1,7 +1,8 @@
 "use client";
 
 import { Beef, Calculator, ChefHat, MapPin, Store, Tag, type LucideIcon } from "lucide-react";
-import { useActiveOffer, useActiveWeekly } from "@/components/useActiveOffer";
+import { useActiveOffer } from "@/components/useActiveOffer";
+import { weeklyOffers } from "@/data/weeklyOffers";
 
 export type Section = { href: string; label: string; hint: string; Icon: LucideIcon };
 
@@ -19,6 +20,5 @@ const all: Section[] = [
 // Ofertas aparece y se va con la misma regla que su sección
 export function useSections() {
   const { offer } = useActiveOffer();
-  const { weekly } = useActiveWeekly();
-  return offer || weekly ? all : all.filter((s) => s.href !== "#ofertas");
+  return offer || weeklyOffers ? all : all.filter((s) => s.href !== "#ofertas");
 }
